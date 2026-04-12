@@ -8,7 +8,8 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/style.css" />
@@ -65,28 +66,74 @@
         </div>
         <div class="leading-tight">
           <div class="flex items-end gap-1">
-            <span class="text-lg sm:text-xl font-bold gradient-text"><span class="lang-en">Qeemat Point</span><span class="lang-ur">قِیمَت پوائنٹ</span></span>
-            <span class="text-xs text-slate-400 hidden sm:inline"><span class="lang-en">قِیمَت پوائنٹ</span><span class="lang-ur">Qeemat Point</span></span>
+            <span class="text-lg sm:text-xl font-bold gradient-text"><span class="lang-en">Qeemat Point</span><span
+                class="lang-ur">قِیمَت پوائنٹ</span></span>
+            <span class="text-xs text-slate-400 hidden sm:inline"><span class="lang-en">قِیمَت پوائنٹ</span><span
+                class="lang-ur">Qeemat Point</span></span>
           </div>
-          <p class="text-xs text-slate-400 hidden sm:block"><span class="lang-en">Smart Price Comparison for Pakistan</span><span class="lang-ur">پاکستان کے لیے اسمارٹ پرائس کمپیرزن</span></p>
+          <p class="text-xs text-slate-400 hidden sm:block"><span class="lang-en">Smart Price Comparison for
+              Pakistan</span><span class="lang-ur">پاکستان کے لیے اسمارٹ پرائس کمپیرزن</span></p>
         </div>
       </div>
       <div class="hidden md:flex items-center gap-6 text-sm font-medium">
-        <a href="#home" class="nav-link text-emerald-300 hover:text-emerald-400 transition"><span class="lang-en">Home</span><span class="lang-ur">ہوم</span></a>
-        <a href="#categories" class="nav-link hover:text-sky-300 text-slate-200 transition"><span class="lang-en">Categories</span><span class="lang-ur">کیٹگریز</span></a>
-        <a href="#deals" class="nav-link hover:text-sky-300 text-slate-200 transition"><span class="lang-en">Best Prices</span><span class="lang-ur">بہترین قیمتیں</span></a>
-        <a href="#blog" class="nav-link hover:text-sky-300 text-slate-200 transition"><span class="lang-en">Blog</span><span class="lang-ur">بلاگ</span></a>
-        <a href="#about" class="nav-link hover:text-sky-300 text-slate-200 transition"><span class="lang-en">About</span><span class="lang-ur">ہمارے بارے میں</span></a>
-        <a href="#contact" class="nav-link hover:text-sky-300 text-slate-200 transition"><span class="lang-en">Contact</span><span class="lang-ur">رابطہ</span></a>
+        <a href="#home" class="nav-link text-emerald-300 hover:text-emerald-400 transition"><span
+            class="lang-en">Home</span><span class="lang-ur">ہوم</span></a>
+        <a href="#categories" class="nav-link hover:text-sky-300 text-slate-200 transition"><span
+            class="lang-en">Categories</span><span class="lang-ur">کیٹگریز</span></a>
+        <a href="#deals" class="nav-link hover:text-sky-300 text-slate-200 transition"><span class="lang-en">Best
+            Prices</span><span class="lang-ur">بہترین قیمتیں</span></a>
+        <a href="#blog" class="nav-link hover:text-sky-300 text-slate-200 transition"><span
+            class="lang-en">Blog</span><span class="lang-ur">بلاگ</span></a>
+        <a href="#about" class="nav-link hover:text-sky-300 text-slate-200 transition"><span
+            class="lang-en">About</span><span class="lang-ur">ہمارے بارے میں</span></a>
+        <a href="#contact" class="nav-link hover:text-sky-300 text-slate-200 transition"><span
+            class="lang-en">Contact</span><span class="lang-ur">رابطہ</span></a>
       </div>
       <div class="flex items-center gap-3">
-        <button id="langToggleBtn" class="px-2.5 py-1.5 rounded-full border border-slate-700 bg-slate-800 text-xs text-slate-200 hover:bg-slate-700 transition">
+        <button id="langToggleBtn"
+          class="px-2.5 py-1.5 rounded-full border border-slate-700 bg-slate-800 text-xs text-slate-200 hover:bg-slate-700 transition">
           <span class="lang-ur">English</span><span class="lang-en">اردو</span>
         </button>
-        <button
-          class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/40 hover:bg-emerald-400 transition">
-          🇵🇰 <span class="lang-en">Live Prices</span><span class="lang-ur">لائیو قیمتیں</span>
-        </button>
+        <div class="relative">
+          <button id="loginToggleBtn"
+            class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-emerald-500/50 text-emerald-400 hover:bg-emerald-500/10 transition shadow-md" title="Login">
+            <svg class="w-[1.125rem] h-[1.125rem]" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#34d399" /> <!-- emerald-400 -->
+                  <stop offset="100%" stop-color="#0ea5e9" /> <!-- sky-500 -->
+                </linearGradient>
+              </defs>
+              <!-- User silhouette -->
+              <path fill="url(#logoGradient)" d="M10 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM3 18c0-2.66 5.33-4 8-4 .7 0 1.43.08 2.16.23a6.002 6.002 0 0 0-.16 1.77c-.6-.05-1.25-.05-2-.05-2.58 0-4.99 1.25-5.74 1.83.13.08.4.22.74.37V18H3z" />
+              <!-- Shield -->
+              <path fill="url(#logoGradient)" d="M18 12l-5 2.25v4.25c0 2.5 1.7 4.9 3.8 6.5 2.1-1.6 3.8-4 3.8-6.5v-4.25L18 12zM17.5 19.8c-1.1-.9-2-2.5-2-4.5v-2l2-1 2 1v2c0 2-.9 3.6-2 4.5z"/>
+            </svg>
+          </button>
+          
+          <!-- Login Dropdown Box -->
+          <div id="loginDropdown" class="hidden absolute ltr:right-0 rtl:left-0 top-[110%] mt-2 w-[17rem] rounded-2xl border border-slate-700 bg-slate-950 p-4 shadow-2xl shadow-slate-900/90 z-50">
+            <!-- Tabs -->
+            <div class="flex border-b border-slate-700/50 mb-4 mx-1">
+              <button id="loginTabUser" class="flex-[1.2] pb-2 text-emerald-400 border-b-2 border-emerald-400 font-semibold text-sm">User</button>
+              <button id="loginTabAdmin" class="flex-[1] pb-2 text-slate-400 font-medium text-sm hover:text-slate-200 border-b-2 border-transparent">Admin</button>
+            </div>
+            
+            <!-- Form -->
+            <form class="space-y-3" dir="ltr">
+              <input id="loginInputUserName" type="text" placeholder="User Name" class="w-full bg-slate-900/70 border border-slate-700 rounded-xl px-3.5 py-2.5 text-slate-200 text-sm outline-none focus:ring-2 focus:ring-emerald-500/70 focus:border-emerald-400 transition placeholder:text-slate-500">
+              <input id="loginInputCompany" type="text" placeholder="Company Name" class="w-full bg-slate-900/70 border border-slate-700 rounded-xl px-3.5 py-2.5 text-slate-200 text-sm outline-none focus:ring-2 focus:ring-emerald-500/70 focus:border-emerald-400 transition placeholder:text-slate-500">
+              <input id="loginInputUserId" type="text" placeholder="User ID" class="w-full bg-slate-900/70 border border-slate-700 rounded-xl px-3.5 py-2.5 text-slate-200 text-sm outline-none focus:ring-2 focus:ring-emerald-500/70 focus:border-emerald-400 transition placeholder:text-slate-500">
+              <input id="loginInputPassword" type="password" placeholder="Password" class="w-full bg-slate-900/70 border border-slate-700 rounded-xl px-3.5 py-2.5 text-slate-200 text-sm outline-none focus:ring-2 focus:ring-emerald-500/70 focus:border-emerald-400 transition placeholder:text-slate-500">
+              
+              <div class="pt-2">
+                <button id="loginSubmitBtn" type="button" class="w-full px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-sky-500 text-slate-950 font-bold text-sm shadow-lg shadow-emerald-500/40 hover:from-emerald-400 hover:to-sky-400 transition">
+                  Login
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
         <button id="mobileMenuBtn"
           class="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-full border border-slate-700 bg-slate-900/70 text-slate-100">
           <span class="sr-only">Menu</span>
@@ -97,12 +144,18 @@
     <!-- Mobile Menu -->
     <div id="mobileMenu" class="md:hidden hidden border-t border-slate-800 bg-slate-950/95 backdrop-blur-xl">
       <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col gap-2 text-sm">
-        <a href="#home" class="nav-link w-fit py-1 text-emerald-300"><span class="lang-en">Home</span><span class="lang-ur">ہوم</span></a>
-        <a href="#categories" class="nav-link w-fit py-1 text-slate-200"><span class="lang-en">Categories</span><span class="lang-ur">کیٹگریز</span></a>
-        <a href="#deals" class="nav-link w-fit py-1 text-slate-200"><span class="lang-en">Best Prices</span><span class="lang-ur">بہترین قیمتیں</span></a>
-        <a href="#blog" class="nav-link w-fit py-1 text-slate-200"><span class="lang-en">Blog</span><span class="lang-ur">بلاگ</span></a>
-        <a href="#about" class="nav-link w-fit py-1 text-slate-200"><span class="lang-en">About</span><span class="lang-ur">ہمارے بارے میں</span></a>
-        <a href="#contact" class="nav-link w-fit py-1 text-slate-200"><span class="lang-en">Contact</span><span class="lang-ur">رابطہ</span></a>
+        <a href="#home" class="nav-link w-fit py-1 text-emerald-300"><span class="lang-en">Home</span><span
+            class="lang-ur">ہوم</span></a>
+        <a href="#categories" class="nav-link w-fit py-1 text-slate-200"><span class="lang-en">Categories</span><span
+            class="lang-ur">کیٹگریز</span></a>
+        <a href="#deals" class="nav-link w-fit py-1 text-slate-200"><span class="lang-en">Best Prices</span><span
+            class="lang-ur">بہترین قیمتیں</span></a>
+        <a href="#blog" class="nav-link w-fit py-1 text-slate-200"><span class="lang-en">Blog</span><span
+            class="lang-ur">بلاگ</span></a>
+        <a href="#about" class="nav-link w-fit py-1 text-slate-200"><span class="lang-en">About</span><span
+            class="lang-ur">ہمارے بارے میں</span></a>
+        <a href="#contact" class="nav-link w-fit py-1 text-slate-200"><span class="lang-en">Contact</span><span
+            class="lang-ur">رابطہ</span></a>
       </div>
     </div>
   </header>
@@ -110,7 +163,7 @@
   <main class="relative z-10">
     <!-- HERO SECTION -->
     <section id="home" class="pt-4 pb-16 sm:pb-20">
-      
+
       <!-- Category Pills Top Bar -->
       <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 mb-6">
         <div class="flex flex-col lg:flex-row items-center justify-between gap-4">
@@ -128,45 +181,49 @@
           </div>
 
           <!-- Mark 2: Category Pills (Center) -->
-          <div class="flex-1 flex flex-nowrap lg:flex-wrap items-center justify-start lg:justify-center gap-2 overflow-x-auto hide-scrollbar pb-1 lg:pb-0 w-full px-2">
+          <div
+            class="flex-1 flex flex-nowrap lg:flex-wrap items-center justify-start lg:justify-center gap-2 overflow-x-auto hide-scrollbar pb-1 lg:pb-0 w-full px-2">
             <a href="pages/food.html"
-            class="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-yellow-500 text-yellow-950 shadow-md shadow-yellow-500/30 hover:bg-yellow-400 transition">
-            🍔 Food
-          </a>
-          <button
-            class="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-rose-500 text-white shadow-md shadow-rose-500/30 hover:bg-rose-400 transition">
-            🚗 Vehicles
-          </button>
-          <button
-            class="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-500 text-emerald-950 shadow-md shadow-emerald-500/30 hover:bg-emerald-400 transition">
-            🛒 Grocery
-          </button>
-          <button
-            class="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-orange-500 text-white shadow-md shadow-orange-500/30 hover:bg-orange-400 transition">
-            🥦 Fruits
-          </button>
-          <button
-            class="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-sky-500 text-sky-950 shadow-md shadow-sky-500/30 hover:bg-sky-400 transition">
-            📱 Mobile
-          </button>
-          <button
-            class="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-indigo-500 text-white shadow-md shadow-indigo-500/30 hover:bg-indigo-400 transition">
-            🏠 Property
-          </button>
-          <button
-            class="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-fuchsia-500 text-white shadow-md shadow-fuchsia-500/30 hover:bg-fuchsia-400 transition">
-            🧴 Personal Care
-          </button>
-          <button
-            class="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-teal-500 text-teal-950 shadow-md shadow-teal-500/30 hover:bg-teal-400 transition">
-            🧸 Kids
-          </button>
+              class="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-yellow-500 text-yellow-950 shadow-md shadow-yellow-500/30 hover:bg-yellow-400 transition">
+              🍔 Food
+            </a>
+            <button
+              class="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-rose-500 text-white shadow-md shadow-rose-500/30 hover:bg-rose-400 transition">
+              🚗 Vehicles
+            </button>
+            <button
+              class="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-500 text-emerald-950 shadow-md shadow-emerald-500/30 hover:bg-emerald-400 transition">
+              🛒 Grocery
+            </button>
+            <button
+              class="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-orange-500 text-white shadow-md shadow-orange-500/30 hover:bg-orange-400 transition">
+              🥦 Fruits
+            </button>
+            <button
+              class="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-sky-500 text-sky-950 shadow-md shadow-sky-500/30 hover:bg-sky-400 transition">
+              📱 Mobile
+            </button>
+            <button
+              class="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-indigo-500 text-white shadow-md shadow-indigo-500/30 hover:bg-indigo-400 transition">
+              🏠 Property
+            </button>
+            <button
+              class="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-fuchsia-500 text-white shadow-md shadow-fuchsia-500/30 hover:bg-fuchsia-400 transition">
+              🧴 Personal Care
+            </button>
+            <button
+              class="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-teal-500 text-teal-950 shadow-md shadow-teal-500/30 hover:bg-teal-400 transition">
+              🧸 Kids
+            </button>
           </div>
 
           <!-- Mark 1: Visitor Counter -->
           <div class="shrink-0 flex items-center justify-center w-full lg:w-auto">
-            <div class="relative inline-flex items-center justify-center p-[2px] rounded-full overflow-hidden shadow-lg shadow-emerald-500/20 group">
-              <span class="absolute inset-[-1000%] bg-[conic-gradient(from_90deg_at_50%_50%,#020617_0%,#10b981_50%,#0ea5e9_100%)] animate-spin" style="animation-duration: 4s;"></span>
+            <div
+              class="relative inline-flex items-center justify-center p-[2px] rounded-full overflow-hidden shadow-lg shadow-emerald-500/20 group">
+              <span
+                class="absolute inset-[-1000%] bg-[conic-gradient(from_90deg_at_50%_50%,#020617_0%,#10b981_50%,#0ea5e9_100%)] animate-spin"
+                style="animation-duration: 4s;"></span>
               <div class="relative inline-flex items-center gap-1.5 px-4 py-2 bg-slate-950 rounded-full w-full h-full">
                 <span class="text-[0.8rem]">👁</span>
                 <span class="font-bold text-emerald-400 font-mono text-[0.8rem] tracking-wide">5,067</span>
@@ -185,7 +242,8 @@
         <div class="flex-1 flex flex-col justify-start">
           <div
             class="inline-flex items-center px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-400/40 text-emerald-300 text-[0.75rem] font-semibold mb-4 w-fit">
-            <span class="lang-en">Price Smart, Save More</span><span class="lang-ur">قیمتوں کا موازنہ، ہوش مندانہ خریداری</span>
+            <span class="lang-en">Price Smart, Save More</span><span class="lang-ur">قیمتوں کا موازنہ، ہوش مندانہ
+              خریداری</span>
           </div>
           <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight mb-4">
             <span class="block gradient-text">
@@ -212,7 +270,8 @@
                   <span class="lang-en">Category</span><span class="lang-ur">کیٹگری</span>
                 </span>
                 <button id="categoryToggle" class="flex-1 flex items-center justify-between gap-1 text-slate-100">
-                  <span id="categoryLabel" class="truncate"><span class="lang-en">All Categories</span><span class="lang-ur">تمام کیٹگریز</span></span>
+                  <span id="categoryLabel" class="truncate"><span class="lang-en">All Categories</span><span
+                      class="lang-ur">تمام کیٹگریز</span></span>
                   <span class="text-xs text-slate-400">▾</span>
                 </button>
                 <!-- Dropdown menu -->
@@ -275,14 +334,16 @@
               </div>
             </div>
             <p class="text-[0.7rem] sm:text-xs text-slate-400 flex flex-wrap gap-2">
-              <span class="font-semibold text-emerald-300"><span class="lang-en">Nearby First</span><span class="lang-ur">قریبی مارکیٹس پہلے</span></span>
+              <span class="font-semibold text-emerald-300"><span class="lang-en">Nearby First</span><span
+                  class="lang-ur">قریبی مارکیٹس پہلے</span></span>
               <span class="hidden sm:inline">•</span>
-              <span><span class="lang-en">Then by Price: Low to High</span><span class="lang-ur">قیمت کم سے زیادہ</span></span>
+              <span><span class="lang-en">Then by Price: Low to High</span><span class="lang-ur">قیمت کم سے
+                  زیادہ</span></span>
             </p>
           </div>
 
           <!-- Horizontal Banner -->
-          <div class="banner-horizontal">
+          <div id="dynamicHorizontalBanner" class="banner-horizontal">
             720 × 120 | Horizontal Ad Space — مقامی دکانیں، سپر اسٹورز یا برانڈ بینرز
           </div>
         </div>
@@ -381,7 +442,7 @@
           </button>
         </div>
 
-        <div class="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+        <div id="dynamicCategoryGrid" class="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
           <!-- Card 1 -->
           <article class="glass-card p-4 hover:shadow-yellow-500/20 hover:-translate-y-1 transition transform">
             <div class="flex items-center justify-between mb-2">
@@ -391,7 +452,9 @@
             <p class="text-xs text-slate-400 mb-3">
               تیار کھانا، فاسٹ فوڈ، پیزا، اور ریسٹورنٹس کی بہترین ڈیلز۔
             </p>
-            <a href="pages/food.html" class="text-xs font-semibold text-yellow-300 hover:text-yellow-200 flex items-center gap-1" style="width: fit-content;">
+            <a href="pages/food.html"
+              class="text-xs font-semibold text-yellow-300 hover:text-yellow-200 flex items-center gap-1"
+              style="width: fit-content;">
               Explore Deals / آفرز دیکھیں <span>→</span>
             </a>
           </article>
@@ -520,7 +583,8 @@
           <!-- Deals List -->
           <div class="lg:col-span-2 glass-card p-4 sm:p-5">
             <h3 class="font-semibold mb-3 text-slate-50 text-sm sm:text-base">
-              <span class="lang-en">Suggested Smart Basket</span><span class="lang-ur">سمجھدار مہینہ بھر کی خریداری</span>
+              <span class="lang-en">Suggested Smart Basket</span><span class="lang-ur">سمجھدار مہینہ بھر کی
+                خریداری</span>
             </h3>
             <div class="grid gap-3 sm:grid-cols-2">
               <div class="border border-slate-800 rounded-xl p-3 bg-slate-950/80">
@@ -556,7 +620,8 @@
           <div class="glass-card p-4 flex flex-col justify-between">
             <div>
               <h3 class="font-semibold mb-2 text-slate-50 text-sm sm:text-base">
-                <span class="lang-en">Made for Pakistani Shoppers</span><span class="lang-ur">پاکستانی صارف کے لیے خاص</span>
+                <span class="lang-en">Made for Pakistani Shoppers</span><span class="lang-ur">پاکستانی صارف کے لیے
+                  خاص</span>
               </h3>
               <ul class="text-[0.7rem] text-slate-400 space-y-1.5">
                 <li>• اردو اور انگلش دونوں میں آسان استعمال</li>

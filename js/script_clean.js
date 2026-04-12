@@ -1,4 +1,4 @@
-// Language Toggle Logic
+﻿// Language Toggle Logic
     const currentLang = localStorage.getItem('qeematLang') || 'ur';
     document.documentElement.lang = currentLang;
     document.documentElement.dir = currentLang === 'ur' ? 'rtl' : 'ltr';
@@ -130,20 +130,20 @@
 
     // Demo products data
     const products = [
-      { name: 'Sugar 1kg / چینی 1 کلو', category: 'grocery', city: 'Karachi', area: 'Gulshan-e-Iqbal', distanceKm: 1.2, price: 155 },
-      { name: 'Sugar 1kg / چینی 1 کلو', category: 'grocery', city: 'Karachi', area: 'Bahadurabad', distanceKm: 3.1, price: 150 },
-      { name: 'Sugar 1kg / چینی 1 کلو', category: 'grocery', city: 'Karachi', area: 'Nazimabad', distanceKm: 4.2, price: 148 },
-      { name: 'Milk 1L Pack / دودھ 1 لیٹر', category: 'grocery', city: 'Lahore', area: 'Model Town', distanceKm: 0.8, price: 235 },
-      { name: 'Milk 1L Pack / دودھ 1 لیٹر', category: 'grocery', city: 'Lahore', area: 'Johar Town', distanceKm: 2.4, price: 230 },
-      { name: 'Tomato 1kg / ٹماٹر 1 کلو', category: 'vegetables', city: 'Karachi', area: 'Saddar', distanceKm: 2.0, price: 95 },
-      { name: 'Potato 1kg / آلو 1 کلو', category: 'vegetables', city: 'Karachi', area: 'Gulshan-e-Iqbal', distanceKm: 1.2, price: 75 },
-      { name: 'Chicken 1kg / چکن 1 کلو', category: 'meat', city: 'Lahore', area: 'Township', distanceKm: 1.5, price: 495 },
-      { name: 'Beef 1kg / بیف 1 کلو', category: 'meat', city: 'Karachi', area: 'Liaquatabad', distanceKm: 3.7, price: 780 },
-      { name: 'Cooking Oil 1L / کوکنگ آئل 1 لیٹر', category: 'grocery', city: 'Karachi', area: 'Defence', distanceKm: 5.2, price: 540 },
-      { name: 'Smartphone 6.5" 128GB / سمارٹ فون', category: 'electronics', city: 'Karachi', area: 'Saddar Mobile Market', distanceKm: 6.0, price: 46500 },
-      { name: 'Smartphone 6.5" 128GB / سمارٹ فون', category: 'electronics', city: 'Lahore', area: 'Hall Road', distanceKm: 4.5, price: 45990 },
-      { name: 'Shampoo 340ml / شیمپو 340ml', category: 'personal', city: 'Karachi', area: 'Gulistan-e-Johar', distanceKm: 2.8, price: 430 },
-      { name: 'Washing Powder 2kg / واشنگ پاؤڈر 2 کلو', category: 'grocery', city: 'Lahore', area: 'DHA', distanceKm: 5.0, price: 880 }
+      { name: 'Sugar 1kg / Ú†ÛŒÙ†ÛŒ 1Ú©Ù„Ùˆ', category: 'grocery', city: 'Karachi', area: 'Gulshan-e-Iqbal', distanceKm: 1.2, price: 155 },
+      { name: 'Sugar 1kg / Ú†ÛŒÙ†ÛŒ 1Ú©Ù„Ùˆ', category: 'grocery', city: 'Karachi', area: 'Bahadurabad', distanceKm: 3.1, price: 150 },
+      { name: 'Sugar 1kg / Ú†ÛŒÙ†ÛŒ 1Ú©Ù„Ùˆ', category: 'grocery', city: 'Karachi', area: 'Nazimabad', distanceKm: 4.2, price: 148 },
+      { name: 'Milk 1L Pack / Ø¯ÙˆØ¯Ú¾ 1Ù„ÛŒÙ¹Ø±', category: 'grocery', city: 'Lahore', area: 'Model Town', distanceKm: 0.8, price: 235 },
+      { name: 'Milk 1L Pack / Ø¯ÙˆØ¯Ú¾ 1Ù„ÛŒÙ¹Ø±', category: 'grocery', city: 'Lahore', area: 'Johar Town', distanceKm: 2.4, price: 230 },
+      { name: 'Tomato 1kg / Ù¹Ù…Ø§Ù¹Ø± 1Ú©Ù„Ùˆ', category: 'vegetables', city: 'Karachi', area: 'Saddar', distanceKm: 2.0, price: 95 },
+      { name: 'Potato 1kg / Ø¢Ù„Ùˆ 1Ú©Ù„Ùˆ', category: 'vegetables', city: 'Karachi', area: 'Gulshan-e-Iqbal', distanceKm: 1.2, price: 75 },
+      { name: 'Chicken 1kg / Ú†Ú©Ù† 1Ú©Ù„Ùˆ', category: 'meat', city: 'Lahore', area: 'Township', distanceKm: 1.5, price: 495 },
+      { name: 'Beef 1kg / Ø¨ÛŒÙ 1Ú©Ù„Ùˆ', category: 'meat', city: 'Karachi', area: 'Liaquatabad', distanceKm: 3.7, price: 780 },
+      { name: 'Cooking Oil 1L / Ú©ÙˆÚ©Ù†Ú¯ Ø¢Ø¦Ù„', category: 'grocery', city: 'Karachi', area: 'Defence', distanceKm: 5.2, price: 540 },
+      { name: 'Smartphone 6.5" 128GB', category: 'electronics', city: 'Karachi', area: 'Saddar Mobile Market', distanceKm: 6.0, price: 46500 },
+      { name: 'Smartphone 6.5" 128GB', category: 'electronics', city: 'Lahore', area: 'Hall Road', distanceKm: 4.5, price: 45990 },
+      { name: 'Shampoo 340ml / Ø´ÛŒÙ…Ù¾Ùˆ', category: 'personal', city: 'Karachi', area: 'Gulistan-e-Johar', distanceKm: 2.8, price: 430 },
+      { name: 'Washing Powder 2kg / ÙˆØ§Ø´Ù†Ú¯ Ù¾Ø§Ø¤ÚˆØ±', category: 'grocery', city: 'Lahore', area: 'DHA', distanceKm: 5.0, price: 880 }
     ];
 
     const productRowsEl = document.getElementById('productRows');
@@ -240,7 +240,7 @@
             
             const btn = document.getElementById('headerLocationBtn');
             if (btn) {
-              btn.innerHTML = '\uD83D\uDCCD Location Active';
+              btn.innerHTML = 'ðŸ“ Location Active';
               btn.className = 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/50 shadow-md transition';
             }
             // In a real app, send these coordinates to your backend
@@ -250,7 +250,7 @@
             console.warn("Location access denied or unavailable:", error.message);
             const btn = document.getElementById('headerLocationBtn');
             if (btn) {
-              btn.innerHTML = '\uD83C\uDDF5\uD83C\uDDF0 Default View';
+              btn.innerHTML = 'ðŸ‡µðŸ‡° Default View';
               btn.className = 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-slate-800 border border-slate-700 text-slate-400 shadow-md transition';
             }
           },
@@ -274,7 +274,7 @@
 
     // Balloons generation
     const balloonLayer = document.querySelector('.balloon-layer');
-    const commodityIcons = ['\uD83C\uDF45', '\uD83E\uDD54', '\uD83C\uDF57', '\uD83E\uDD5B', '\uD83C\uDF5A', '\uD83D\uDCF1', '\uD83E\uDDF4', '\uD83E\uDDFC', '\uD83E\uDD66', '\uD83C\uDF4A', '\uD83E\uDD69', '\uD83D\uDEE2\uFE0F'];
+    const commodityIcons = ['ðŸ…', 'ðŸ¥”', 'ðŸ—', 'ðŸ¥›', 'ðŸš', 'ðŸ“±', 'ðŸ§´', 'ðŸ§¼', 'ðŸ¥¦', 'ðŸŠ', 'ðŸ¥©', 'ðŸ›¢ï¸'];
 
     function createBalloon() {
       if (!balloonLayer) return;
@@ -340,98 +340,3 @@
       if ((window.innerHeight + scrollY) >= document.body.offsetHeight - 50) {
         if (targetElements.length > 0) {
           const lastEl = targetElements[targetElements.length - 1];
-
-          current = lastEl ? lastEl.getAttribute('id') : '';
-        }
-      }
-
-      navLinks.forEach((link) => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${current}`) {
-          link.classList.add('active');
-        }
-      });
-    });
-
-// Dynamic Add-ons (Categories & Banners)
-document.addEventListener('DOMContentLoaded', async () => {
-    // 1. Dynamic Categories Mapping
-    const catGrid = document.getElementById('dynamicCategoryGrid');
-    if (catGrid && window.DataService) {
-        try {
-            const categories = await DataService.getCategories();
-            if (categories && categories.length > 0) {
-                const iconMap = {
-                    'food': '\uD83C\uDF54',
-                    'vehicle': '\uD83D\uDE97',
-                    'vehicles': '\uD83D\uDE97',
-                    'grocery': '\uD83D\uDED2',
-                    'electronics': '\uD83D\uDCF1',
-                    'mobile': '\uD83D\uDCF1',
-                    'mobiles': '\uD83D\uDCF1',
-                    'clothing': '\uD83D\uDC55',
-                    'housing': '\uD83C\uDFE0',
-                    'home': '\uD83C\uDFE0',
-                    'properties': '\uD83C\uDFE0'
-                };
-                
-                catGrid.innerHTML = categories.map(cat => {
-                    const icon = iconMap[cat.name.toLowerCase()] || '\uD83D\uDCE6';
-                    const link = cat.name.toLowerCase() === 'food' ? 'pages/food.html' : 'javascript:void(0)';
-                    return `
-                      <article class="glass-card p-4 hover:-translate-y-1 transition transform" onclick="window.location.href='${link}'" style="cursor:pointer; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; background: rgba(15, 23, 42, 0.4);">
-                        <div class="flex items-center justify-between mb-2">
-                          <div class="w-10 h-10 rounded-2xl bg-slate-800 flex items-center justify-center text-xl">${icon}</div>
-                        </div>
-                        <h3 class="font-bold text-slate-100 flex items-center gap-1" style="font-size: 1.1rem; line-height: 1.2;">
-                           ${cat.name}
-                        </h3>
-                      </article>
-                    `;
-                }).join('');
-            }
-        } catch (e) {
-            console.error("Failed to map dynamic categories", e);
-        }
-    }
-
-    // 2. Dynamic Banner Rotation
-    const adBanner = document.getElementById('dynamicHorizontalBanner');
-    if (adBanner && window.DataService) {
-        try {
-            const banners = await DataService.getBanners();
-            if (banners && banners.length > 0) {
-                adBanner.style.padding = '0';
-                adBanner.style.display = 'block';
-                adBanner.style.background = 'transparent';
-                adBanner.style.border = 'none';
-                adBanner.style.color = 'transparent';
-                adBanner.innerHTML = '';
-                
-                let currentBannerIndex = 0;
-                
-                const renderBanner = () => {
-                    const b = banners[currentBannerIndex];
-                    const clickTarget = b.link ? b.link : 'javascript:void(0)';
-                    const cursor = b.link ? 'pointer' : 'default';
-                    adBanner.innerHTML = `
-                      <a href="${clickTarget}" style="display:block; width:100%; height:100%; overflow:hidden; border-radius: 1rem; cursor: ${cursor}; text-decoration: none;">
-                         <img src="${b.image}" alt="Promotional Banner" style="width:100%; height:100%; object-fit: cover; border-radius: 1rem; transition: opacity 0.5s ease;" />
-                      </a>
-                    `;
-                };
-
-                renderBanner();
-
-                if (banners.length > 1) {
-                    setInterval(() => {
-                        currentBannerIndex = (currentBannerIndex + 1) % banners.length;
-                        renderBanner();
-                    }, 4500); 
-                }
-            }
-        } catch (e) {
-            console.error("Failed to map banners", e);
-        }
-    }
-});
