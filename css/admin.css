@@ -363,17 +363,18 @@ h3 {
 
 .admin-table th {
     text-align: left;
-    padding: 15px;
+    padding: 10px 15px;
     background: rgba(30, 41, 59, 0.8);
     color: #94a3b8;
     font-weight: 600;
+    font-size: 0.95rem;
     border-bottom: 2px solid var(--border-color);
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }
 
 .admin-table td {
-    padding: 15px;
+    padding: 12px 15px;
     border-bottom: 1px solid rgba(148, 163, 184, 0.1);
     vertical-align: middle;
 }

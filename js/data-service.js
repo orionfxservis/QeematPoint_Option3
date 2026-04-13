@@ -14,7 +14,20 @@ const DataService = {
             const url = `${DataService.API_URL}?action=${action}`;
             const response = await fetch(url);
             if (!response.ok) throw new Error('Network response was not ok');
-            return await response.json();
+            const data = await response.json();
+            if (data.error) throw new Error(data.error);
+            
+            const localData = JSON.parse(localStorage.getItem(action.replace('get', '').toLowerCase()));
+            // Prioritize local data if it exists and has items, ensuring admin changes are visible immediately
+            // even if the Google Apps script backend is returning stale data or dummy placeholders.
+            if (localData && Array.isArray(localData) && localData.length > 0) {
+                return localData;
+            }
+
+            if (!data || !Array.isArray(data) || data.length === 0) {
+                return localData || [];
+            }
+            return data;
         } catch (error) {
             console.error(`Error fetching ${action}:`, error);
             // Fallback for local testing if API isn't set
@@ -24,6 +37,9 @@ const DataService = {
 
     _fetchPOST: async (action, payload) => {
         try {
+            if (action.startsWith('save')) {
+                localStorage.setItem(action.replace('save', '').toLowerCase(), JSON.stringify(payload));
+            }
             const response = await fetch(DataService.API_URL, {
                 method: 'POST',
                 // Using text/plain avoids some CORS preflight issues with Google Apps Script
@@ -38,7 +54,6 @@ const DataService = {
             console.error(`Error posting ${action}:`, error);
             // Fallback for local testing
             if (action.startsWith('save')) {
-                localStorage.setItem(action.replace('save', '').toLowerCase(), JSON.stringify(payload));
                 return { message: 'Success' };
             }
             throw error;
@@ -70,7 +85,12 @@ const DataService = {
     // --- Banners ---
 
     getBanners: async () => {
-        return await DataService._fetchGET('getBanners');
+        let items = await DataService._fetchGET('getBanners');
+        if (!items || items.length === 0) {
+            // Provide a default banner if local memory is empty / cross-origin blocked
+            items = [{ image: 'https://picsum.photos/720/120?random=test', link: '#' }];
+        }
+        return items;
     },
 
     saveBanners: async (banners) => {

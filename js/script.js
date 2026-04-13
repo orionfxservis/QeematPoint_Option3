@@ -357,38 +357,72 @@
 document.addEventListener('DOMContentLoaded', async () => {
     // 1. Dynamic Categories Mapping
     const catGrid = document.getElementById('dynamicCategoryGrid');
-    if (catGrid && window.DataService) {
+    const topPills = document.getElementById('dynamicTopPills');
+    if ((catGrid || topPills) && window.DataService) {
         try {
             const categories = await DataService.getCategories();
             if (categories && categories.length > 0) {
+                const visibleCategories = categories.filter(cat => cat.showOnMainPage !== false);
                 const iconMap = {
                     'food': '\uD83C\uDF54',
                     'vehicle': '\uD83D\uDE97',
                     'vehicles': '\uD83D\uDE97',
                     'grocery': '\uD83D\uDED2',
+                    'fruits': '🥦',
+                    'fruit': '🥦',
                     'electronics': '\uD83D\uDCF1',
                     'mobile': '\uD83D\uDCF1',
                     'mobiles': '\uD83D\uDCF1',
                     'clothing': '\uD83D\uDC55',
                     'housing': '\uD83C\uDFE0',
                     'home': '\uD83C\uDFE0',
-                    'properties': '\uD83C\uDFE0'
+                    'properties': '\uD83C\uDFE0',
+                    'property': '\uD83C\uDFE0',
+                    'personal care': '🧴',
+                    'kids': '🧸'
                 };
-                
-                catGrid.innerHTML = categories.map(cat => {
-                    const icon = iconMap[cat.name.toLowerCase()] || '\uD83D\uDCE6';
-                    const link = cat.name.toLowerCase() === 'food' ? 'pages/food.html' : 'javascript:void(0)';
-                    return `
-                      <article class="glass-card p-4 hover:-translate-y-1 transition transform" onclick="window.location.href='${link}'" style="cursor:pointer; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; background: rgba(15, 23, 42, 0.4);">
-                        <div class="flex items-center justify-between mb-2">
-                          <div class="w-10 h-10 rounded-2xl bg-slate-800 flex items-center justify-center text-xl">${icon}</div>
-                        </div>
-                        <h3 class="font-bold text-slate-100 flex items-center gap-1" style="font-size: 1.1rem; line-height: 1.2;">
-                           ${cat.name}
-                        </h3>
-                      </article>
-                    `;
-                }).join('');
+                if (catGrid) {
+                    catGrid.innerHTML = visibleCategories.map(cat => {
+                        const icon = iconMap[cat.name.toLowerCase()] || '\uD83D\uDCE6';
+                        const link = cat.name.toLowerCase() === 'food' ? 'pages/food.html' : 'javascript:void(0)';
+                        return `
+                        <article class="glass-card p-4 hover:-translate-y-1 transition transform" style="cursor: pointer;" onclick="window.location.href='${link}'">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-xl">${icon}</div>
+                            </div>
+                            <h3 class="font-semibold mb-1 text-slate-50">${cat.name}</h3>
+                            <button class="text-xs font-semibold text-emerald-300 hover:text-emerald-200 mt-2 flex items-center gap-1">
+                                Explore / دیکھیں <span>→</span>
+                            </button>
+                        </article>
+                    `}).join('');
+                }
+
+                if (topPills) {
+                    const topStyles = [
+                        { bg: 'bg-yellow-500', text: 'text-yellow-950', shadow: 'shadow-yellow-500/30', hover: 'hover:bg-yellow-400' },
+                        { bg: 'bg-rose-500', text: 'text-white', shadow: 'shadow-rose-500/30', hover: 'hover:bg-rose-400' },
+                        { bg: 'bg-emerald-500', text: 'text-emerald-950', shadow: 'shadow-emerald-500/30', hover: 'hover:bg-emerald-400' },
+                        { bg: 'bg-orange-500', text: 'text-white', shadow: 'shadow-orange-500/30', hover: 'hover:bg-orange-400' },
+                        { bg: 'bg-sky-500', text: 'text-sky-950', shadow: 'shadow-sky-500/30', hover: 'hover:bg-sky-400' },
+                        { bg: 'bg-indigo-500', text: 'text-white', shadow: 'shadow-indigo-500/30', hover: 'hover:bg-indigo-400' },
+                        { bg: 'bg-fuchsia-500', text: 'text-white', shadow: 'shadow-fuchsia-500/30', hover: 'hover:bg-fuchsia-400' },
+                        { bg: 'bg-teal-500', text: 'text-teal-950', shadow: 'shadow-teal-500/30', hover: 'hover:bg-teal-400' }
+                    ];
+                    
+                    topPills.innerHTML = visibleCategories.map((cat, idx) => {
+                        const icon = iconMap[cat.name.toLowerCase()] || '\uD83D\uDCE6';
+                        const link = cat.name.toLowerCase() === 'food' ? 'pages/food.html' : 'javascript:void(0)';
+                        const styleArgs = topStyles[idx % topStyles.length];
+                        const className = `shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold ${styleArgs.bg} ${styleArgs.text} shadow-md ${styleArgs.shadow} ${styleArgs.hover} transition`;
+                        
+                        if (link !== 'javascript:void(0)') {
+                            return `<a href="${link}" class="${className}">${icon} ${cat.name}</a>`;
+                        } else {
+                            return `<button class="${className}">${icon} ${cat.name}</button>`;
+                        }
+                    }).join('');
+                }
             }
         } catch (e) {
             console.error("Failed to map dynamic categories", e);

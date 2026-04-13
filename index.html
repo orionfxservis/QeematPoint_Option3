@@ -96,8 +96,10 @@
         </button>
         <div class="relative">
           <button id="loginToggleBtn"
-            class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-emerald-500/50 text-emerald-400 hover:bg-emerald-500/10 transition shadow-md" title="Login">
-            <svg class="w-[1.125rem] h-[1.125rem]" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-emerald-500/50 text-emerald-400 hover:bg-emerald-500/10 transition shadow-md"
+            title="Login">
+            <svg class="w-[1.125rem] h-[1.125rem]" viewBox="0 0 24 24" fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stop-color="#34d399" /> <!-- emerald-400 -->
@@ -105,29 +107,39 @@
                 </linearGradient>
               </defs>
               <!-- User silhouette -->
-              <path fill="url(#logoGradient)" d="M10 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM3 18c0-2.66 5.33-4 8-4 .7 0 1.43.08 2.16.23a6.002 6.002 0 0 0-.16 1.77c-.6-.05-1.25-.05-2-.05-2.58 0-4.99 1.25-5.74 1.83.13.08.4.22.74.37V18H3z" />
+              <path fill="url(#logoGradient)"
+                d="M10 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM3 18c0-2.66 5.33-4 8-4 .7 0 1.43.08 2.16.23a6.002 6.002 0 0 0-.16 1.77c-.6-.05-1.25-.05-2-.05-2.58 0-4.99 1.25-5.74 1.83.13.08.4.22.74.37V18H3z" />
               <!-- Shield -->
-              <path fill="url(#logoGradient)" d="M18 12l-5 2.25v4.25c0 2.5 1.7 4.9 3.8 6.5 2.1-1.6 3.8-4 3.8-6.5v-4.25L18 12zM17.5 19.8c-1.1-.9-2-2.5-2-4.5v-2l2-1 2 1v2c0 2-.9 3.6-2 4.5z"/>
+              <path fill="url(#logoGradient)"
+                d="M18 12l-5 2.25v4.25c0 2.5 1.7 4.9 3.8 6.5 2.1-1.6 3.8-4 3.8-6.5v-4.25L18 12zM17.5 19.8c-1.1-.9-2-2.5-2-4.5v-2l2-1 2 1v2c0 2-.9 3.6-2 4.5z" />
             </svg>
           </button>
-          
+
           <!-- Login Dropdown Box -->
-          <div id="loginDropdown" class="hidden absolute ltr:right-0 rtl:left-0 top-[110%] mt-2 w-[17rem] rounded-2xl border border-slate-700 bg-slate-950 p-4 shadow-2xl shadow-slate-900/90 z-50">
+          <div id="loginDropdown"
+            class="hidden absolute ltr:right-0 rtl:left-0 top-[110%] mt-2 w-[17rem] rounded-2xl border border-slate-700 bg-slate-950 p-4 shadow-2xl shadow-slate-900/90 z-50">
             <!-- Tabs -->
             <div class="flex border-b border-slate-700/50 mb-4 mx-1">
-              <button id="loginTabUser" class="flex-[1.2] pb-2 text-emerald-400 border-b-2 border-emerald-400 font-semibold text-sm">User</button>
-              <button id="loginTabAdmin" class="flex-[1] pb-2 text-slate-400 font-medium text-sm hover:text-slate-200 border-b-2 border-transparent">Admin</button>
+              <button id="loginTabUser"
+                class="flex-[1.2] pb-2 text-emerald-400 border-b-2 border-emerald-400 font-semibold text-sm">User</button>
+              <button id="loginTabAdmin"
+                class="flex-[1] pb-2 text-slate-400 font-medium text-sm hover:text-slate-200 border-b-2 border-transparent">Admin</button>
             </div>
-            
+
             <!-- Form -->
             <form class="space-y-3" dir="ltr">
-              <input id="loginInputUserName" type="text" placeholder="User Name" class="w-full bg-slate-900/70 border border-slate-700 rounded-xl px-3.5 py-2.5 text-slate-200 text-sm outline-none focus:ring-2 focus:ring-emerald-500/70 focus:border-emerald-400 transition placeholder:text-slate-500">
-              <input id="loginInputCompany" type="text" placeholder="Company Name" class="w-full bg-slate-900/70 border border-slate-700 rounded-xl px-3.5 py-2.5 text-slate-200 text-sm outline-none focus:ring-2 focus:ring-emerald-500/70 focus:border-emerald-400 transition placeholder:text-slate-500">
-              <input id="loginInputUserId" type="text" placeholder="User ID" class="w-full bg-slate-900/70 border border-slate-700 rounded-xl px-3.5 py-2.5 text-slate-200 text-sm outline-none focus:ring-2 focus:ring-emerald-500/70 focus:border-emerald-400 transition placeholder:text-slate-500">
-              <input id="loginInputPassword" type="password" placeholder="Password" class="w-full bg-slate-900/70 border border-slate-700 rounded-xl px-3.5 py-2.5 text-slate-200 text-sm outline-none focus:ring-2 focus:ring-emerald-500/70 focus:border-emerald-400 transition placeholder:text-slate-500">
-              
+              <input id="loginInputUserName" type="text" placeholder="User Name"
+                class="w-full bg-slate-900/70 border border-slate-700 rounded-xl px-3.5 py-2.5 text-slate-200 text-sm outline-none focus:ring-2 focus:ring-emerald-500/70 focus:border-emerald-400 transition placeholder:text-slate-500">
+              <input id="loginInputCompany" type="text" placeholder="Company Name"
+                class="w-full bg-slate-900/70 border border-slate-700 rounded-xl px-3.5 py-2.5 text-slate-200 text-sm outline-none focus:ring-2 focus:ring-emerald-500/70 focus:border-emerald-400 transition placeholder:text-slate-500">
+              <input id="loginInputUserId" type="text" placeholder="User ID"
+                class="w-full bg-slate-900/70 border border-slate-700 rounded-xl px-3.5 py-2.5 text-slate-200 text-sm outline-none focus:ring-2 focus:ring-emerald-500/70 focus:border-emerald-400 transition placeholder:text-slate-500">
+              <input id="loginInputPassword" type="password" placeholder="Password"
+                class="w-full bg-slate-900/70 border border-slate-700 rounded-xl px-3.5 py-2.5 text-slate-200 text-sm outline-none focus:ring-2 focus:ring-emerald-500/70 focus:border-emerald-400 transition placeholder:text-slate-500">
+
               <div class="pt-2">
-                <button id="loginSubmitBtn" type="button" class="w-full px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-sky-500 text-slate-950 font-bold text-sm shadow-lg shadow-emerald-500/40 hover:from-emerald-400 hover:to-sky-400 transition">
+                <button id="loginSubmitBtn" type="button"
+                  class="w-full px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-sky-500 text-slate-950 font-bold text-sm shadow-lg shadow-emerald-500/40 hover:from-emerald-400 hover:to-sky-400 transition">
                   Login
                 </button>
               </div>
@@ -181,7 +193,7 @@
           </div>
 
           <!-- Mark 2: Category Pills (Center) -->
-          <div
+          <div id="dynamicTopPills"
             class="flex-1 flex flex-nowrap lg:flex-wrap items-center justify-start lg:justify-center gap-2 overflow-x-auto hide-scrollbar pb-1 lg:pb-0 w-full px-2">
             <a href="pages/food.html"
               class="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-yellow-500 text-yellow-950 shadow-md shadow-yellow-500/30 hover:bg-yellow-400 transition">
@@ -806,7 +818,28 @@
   </footer>
 
   <!-- JavaScript -->
+  <script src="js/data-service.js"></script>
   <script src="js/script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const bannerList = JSON.parse(localStorage.getItem('banners')) || [];
+      const adBanner = document.getElementById('dynamicHorizontalBanner');
+      if (adBanner && bannerList.length > 0) {
+        const b = bannerList[0];
+        const clickTarget = b.link ? b.link : 'javascript:void(0)';
+        const cursor = b.link ? 'pointer' : 'default';
+        adBanner.style.padding = '0';
+        adBanner.style.display = 'block';
+        adBanner.style.background = 'transparent';
+        adBanner.style.border = 'none';
+        adBanner.style.color = 'transparent';
+        adBanner.innerHTML = `
+          <a href="${clickTarget}" style="display:block; width:100%; height:100%; overflow:hidden; border-radius: 1rem; cursor: ${cursor}; text-decoration: none;">
+             <img src="${b.image}" alt="Promotional Banner" style="width:100%; height:100%; object-fit: fill; border-radius: 1rem; transition: opacity 0.5s ease;" onerror="this.src='https://picsum.photos/720/120'"/>
+          </a>`;
+      }
+    });
+  </script>
 </body>
 
 </html>

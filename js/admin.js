@@ -17,7 +17,8 @@ const totalProductsEl = document.getElementById('totalProducts');
 const totalCategoriesEl = document.getElementById('totalCategories');
 const totalCompaniesEl = document.getElementById('totalCompanies');
 const fieldsContainer = document.getElementById('fieldsContainer');
-const submitBtn = categoryForm ? categoryForm.querySelector('button[type="submit"]') : null;
+const btnSaveCategory = document.getElementById('btnSaveCategory');
+const btnCancelCategory = document.getElementById('btnCancelCategory');
 
 // Banner DOM
 const bannerForm = document.getElementById('bannerForm');
@@ -44,10 +45,10 @@ async function initAdmin() {
         renderAdminProducts(); // New function for products
         populateCategoryDropdown(); // New function for form
 
-        // Ensure one field is there at start if container exists
-        if (fieldsContainer && fieldsContainer.children.length === 0) {
-            window.addField();
-        }
+        // Prevent auto-adding dummy field since we want it completely empty at start
+        // if (fieldsContainer && fieldsContainer.children.length === 0) {
+        //     window.addField();
+        // }
 
         updateBannerPreview();
     } catch (error) {
@@ -75,11 +76,17 @@ function updateUI() {
         categoryList.innerHTML = categories.map((cat, index) => {
             const fields = cat.fields || [];
             const fieldBadges = fields.map(f => `<span class="badge">${f.name} <small>(${f.type})</small></span>`).join(' ');
+            const isChecked = cat.showOnMainPage !== false ? 'checked' : '';
             return `
             <tr>
                 <td>${cat.name}</td>
                 
                 <td><div class="field-badges">${fieldBadges}</div></td>
+                <td>
+                    <label style="display:flex; align-items:center; gap:5px; cursor:pointer;">
+                        <input type="checkbox" ${isChecked} onchange="toggleCategoryVisibility(${index}, this.checked)" style="width: auto; margin:0;"> Show
+                    </label>
+                </td>
                 <td>
                     <button class="edit-btn" onclick="editCategory(${index})"><i class="fa-solid fa-pen"></i></button>
                     <button class="delete-btn" onclick="deleteCategory(${index})"><i class="fa-solid fa-trash"></i></button>
@@ -96,13 +103,17 @@ async function deleteCategory(index) {
     }
 }
 
+window.toggleCategoryVisibility = async (index, isVisible) => {
+    categories[index].showOnMainPage = isVisible;
+    await saveCategories();
+};
+
 window.editCategory = (index) => {
     editIndex = index;
     const cat = categories[index];
 
     // Populate Form
     document.getElementById('catName').value = cat.name;
-    document.getElementById('subCatName').value = cat.subCategory;
 
     // Populate Fields
     fieldsContainer.innerHTML = '';
@@ -112,10 +123,19 @@ window.editCategory = (index) => {
     });
 
     // Update Button Text
-    if (submitBtn) submitBtn.textContent = "Update Category";
+    if (btnSaveCategory) btnSaveCategory.textContent = "Update Category";
+    if (btnCancelCategory) btnCancelCategory.style.display = "inline-block";
 
     // Scroll to form
     document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth' });
+};
+
+window.cancelCategoryEdit = () => {
+    editIndex = -1;
+    if (categoryForm) categoryForm.reset();
+    if (fieldsContainer) fieldsContainer.innerHTML = '';
+    if (btnSaveCategory) btnSaveCategory.textContent = "Add Category";
+    if (btnCancelCategory) btnCancelCategory.style.display = "none";
 };
 
 // Dynamic Fields Logic
@@ -154,19 +174,21 @@ if (categoryForm) {
 
         if (editIndex === -1) {
             // Create
-            categories.push({ name, fields });
+            categories.push({ name, fields, showOnMainPage: true });
         } else {
             // Update
-            categories[editIndex] = { name, fields };
-            editIndex = -1;
-            if (submitBtn) submitBtn.textContent = "Add Category";
+            categories[editIndex].name = name;
+            categories[editIndex].fields = fields;
+            // Kept showOnMainPage as it was
+            cancelCategoryEdit();
         }
 
         await saveCategories();
 
-        categoryForm.reset();
-        fieldsContainer.innerHTML = ''; // Clear fields
-        window.addField(); // Add back one empty field
+        if (editIndex === -1) {
+            categoryForm.reset();
+            fieldsContainer.innerHTML = ''; // Clear fields
+        }
     });
 }
 

@@ -142,17 +142,14 @@
                                 <input type="text" id="catName" placeholder="e.g., Electronics" required style="max-width: 300px;">
                             </div>
                         </div>
-                        <label style="margin-top: 20px; display: block; margin-bottom: 10px;">Custom Fields</label>
-                        <div class="field-header">
-                            <span>Field Name</span>
-                            <span>Type</span>
-                            <span></span>
-                        </div>
-                        <div id="fieldsContainer">
+                        <div id="fieldsContainer" style="margin-top: 20px;">
                             <!-- Dynamic fields will be added here -->
                         </div>
-                        <button type="button" class="btn btn-secondary" onclick="addField()">+ Add Field</button>
-                        <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add Category</button>
+                        <div class="form-actions" style="margin-top: 15px;">
+                            <button type="button" class="btn btn-secondary" onclick="addField()">+ Add Field</button>
+                            <button type="submit" class="btn btn-primary" id="btnSaveCategory">Add Category</button>
+                            <button type="button" class="btn btn-secondary" id="btnCancelCategory" style="display:none;" onclick="cancelCategoryEdit()">Cancel Edit</button>
+                        </div>
                     </form>
                 </div>
 
@@ -163,6 +160,7 @@
                             <tr>
                                 <th>Category</th>
                                 <th>Fields</th>
+                                <th>Visibility</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
