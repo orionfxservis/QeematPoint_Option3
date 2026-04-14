@@ -444,9 +444,7 @@
   </div>
 
   <!-- Scripts -->
-  <script>
-
-// ===== CATEGORY DATA =====
+  // ===== CATEGORY DATA =====
 const categoryData = {
   Food: {
     "Fast Food": {
@@ -587,8 +585,6 @@ document.getElementById("clearFilters").addEventListener("click", () => {
   });
   applyFilters();
 });
-
-</script>
 
   <script src="../js/script.js"></script>
   <script src="../js/food.js"></script>
