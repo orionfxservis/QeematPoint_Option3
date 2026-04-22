@@ -470,7 +470,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const cursor = b.link ? 'pointer' : 'default';
                         adBanner.innerHTML = `
                           <a href="${clickTarget}" style="display:block; width:100%; height:100%; overflow:hidden; border-radius: 1rem; cursor: ${cursor}; text-decoration: none;">
-                             <img src="${b.image}" alt="Promotional Banner" style="width:100%; height:100%; object-fit: cover; border-radius: 1rem; transition: opacity 0.5s ease;" />
+                             <img src="${b.image}" alt="Promotional Banner" style="width:100%; height:100%; object-fit: fill; border-radius: 1rem; transition: opacity 0.5s ease;" onerror="this.src='https://picsum.photos/720/120'"/>
                           </a>
                         `;
                     };
@@ -495,7 +495,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             return `
                               <div class="banner-item" style="padding:0; background:transparent; display:block; flex-shrink:0;">
                                 <a href="${clickTarget}" style="display:block; width:100%; height:100%; cursor:${cursor}; text-decoration:none;">
-                                  <img src="${b.image}" alt="Vertical Ad" style="width:100%; height:100%; object-fit:cover;" />
+                                  <img src="${b.image}" alt="Vertical Ad" style="width:100%; height:100%; object-fit:fill;" onerror="this.src='https://picsum.photos/120/180'"/>
                                 </a>
                               </div>
                             `;
