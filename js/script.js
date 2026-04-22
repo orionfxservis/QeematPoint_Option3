@@ -354,13 +354,12 @@
     });
 
 // Dynamic Add-ons (Categories & Banners)
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
     // 1. Dynamic Categories Mapping
     const catGrid = document.getElementById('dynamicCategoryGrid');
     const topPills = document.getElementById('dynamicTopPills');
-    if ((catGrid || topPills) && window.DataService) {
-        try {
-            const categories = await DataService.getCategories();
+    if ((catGrid || topPills) && typeof DataService !== 'undefined') {
+        DataService.getCategories().then(categories => {
             if (categories && categories.length > 0) {
                 const visibleCategories = categories.filter(cat => cat.showOnMainPage !== false);
                 const iconMap = {
@@ -424,18 +423,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                     }).join('');
                 }
             }
-        } catch (e) {
+        }).catch(e => {
             console.error("Failed to map dynamic categories", e);
-        }
+        });
     }
 
     // 2. Dynamic Banner Rotation
     const adBanner = document.getElementById('dynamicHorizontalBanner');
     const vertBanner = document.getElementById('dynamicVerticalBanner');
 
-    if (window.DataService) {
-        try {
-            const allBannersRaw = await DataService.getBanners();
+    if (typeof DataService !== 'undefined') {
+        DataService.getBanners().then(allBannersRaw => {
             if (allBannersRaw && allBannersRaw.length > 0) {
                 // Unpack type from link if the backend dropped it
                 const allBanners = allBannersRaw.map(b => {
@@ -527,8 +525,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                     vertBanner.innerHTML = fallbackHTML + fallbackHTML;
                 }
             }
-        } catch (e) {
+        }).catch(e => {
             console.error("Failed to map banners", e);
-        }
+        });
     }
 });
