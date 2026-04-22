@@ -431,37 +431,100 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 2. Dynamic Banner Rotation
     const adBanner = document.getElementById('dynamicHorizontalBanner');
-    if (adBanner && window.DataService) {
+    const vertBanner = document.getElementById('dynamicVerticalBanner');
+
+    if (window.DataService) {
         try {
-            const banners = await DataService.getBanners();
-            if (banners && banners.length > 0) {
-                adBanner.style.padding = '0';
-                adBanner.style.display = 'block';
-                adBanner.style.background = 'transparent';
-                adBanner.style.border = 'none';
-                adBanner.style.color = 'transparent';
-                adBanner.innerHTML = '';
-                
-                let currentBannerIndex = 0;
-                
-                const renderBanner = () => {
-                    const b = banners[currentBannerIndex];
-                    const clickTarget = b.link ? b.link : 'javascript:void(0)';
-                    const cursor = b.link ? 'pointer' : 'default';
-                    adBanner.innerHTML = `
-                      <a href="${clickTarget}" style="display:block; width:100%; height:100%; overflow:hidden; border-radius: 1rem; cursor: ${cursor}; text-decoration: none;">
-                         <img src="${b.image}" alt="Promotional Banner" style="width:100%; height:100%; object-fit: cover; border-radius: 1rem; transition: opacity 0.5s ease;" />
-                      </a>
+            const allBannersRaw = await DataService.getBanners();
+            if (allBannersRaw && allBannersRaw.length > 0) {
+                // Unpack type from link if the backend dropped it
+                const allBanners = allBannersRaw.map(b => {
+                    let displayType = b.type;
+                    let displayLink = b.link;
+                    if (displayLink && typeof displayLink === 'string' && displayLink.includes('|')) {
+                        const parts = displayLink.split('|');
+                        if (parts[0] === 'vertical' || parts[0] === 'horizontal') {
+                            displayType = parts[0];
+                            displayLink = parts.slice(1).join('|');
+                        }
+                    }
+                    return { ...b, type: displayType, link: displayLink };
+                });
+
+                // Separate by type, default to horizontal if missing
+                const horizBanners = allBanners.filter(b => !b.type || b.type === 'horizontal');
+                const vertBanners = allBanners.filter(b => b.type === 'vertical');
+
+                // Render Horizontal Banners
+                if (adBanner && horizBanners.length > 0) {
+                    adBanner.style.padding = '0';
+                    adBanner.style.display = 'block';
+                    adBanner.style.background = 'transparent';
+                    adBanner.style.border = 'none';
+                    adBanner.style.color = 'transparent';
+                    adBanner.innerHTML = '';
+                    
+                    let currentBannerIndex = 0;
+                    
+                    const renderBanner = () => {
+                        const b = horizBanners[currentBannerIndex];
+                        const clickTarget = b.link ? b.link : 'javascript:void(0)';
+                        const cursor = b.link ? 'pointer' : 'default';
+                        adBanner.innerHTML = `
+                          <a href="${clickTarget}" style="display:block; width:100%; height:100%; overflow:hidden; border-radius: 1rem; cursor: ${cursor}; text-decoration: none;">
+                             <img src="${b.image}" alt="Promotional Banner" style="width:100%; height:100%; object-fit: cover; border-radius: 1rem; transition: opacity 0.5s ease;" />
+                          </a>
+                        `;
+                    };
+
+                    renderBanner();
+
+                    if (horizBanners.length > 1) {
+                        setInterval(() => {
+                            currentBannerIndex = (currentBannerIndex + 1) % horizBanners.length;
+                            renderBanner();
+                        }, 4500); 
+                    }
+                }
+
+                // Render Vertical Banners
+                if (vertBanner && vertBanners.length > 0) {
+                    const generateVerticalHTML = () => {
+                        return vertBanners.map((b, i) => {
+                            const clickTarget = b.link ? b.link : 'javascript:void(0)';
+                            const cursor = b.link ? 'pointer' : 'default';
+                            // We use .banner-item styling, overriding background
+                            return `
+                              <div class="banner-item" style="padding:0; background:transparent; display:block; flex-shrink:0;">
+                                <a href="${clickTarget}" style="display:block; width:100%; height:100%; cursor:${cursor}; text-decoration:none;">
+                                  <img src="${b.image}" alt="Vertical Ad" style="width:100%; height:100%; object-fit:cover;" />
+                                </a>
+                              </div>
+                            `;
+                        }).join('');
+                    };
+
+                    // We need the first half of the track to be at least 720px tall (the container height)
+                    // Each banner is 180px tall, so a full set is vertBanners.length * 180
+                    const setHeight = vertBanners.length * 180;
+                    const setsNeededForHalf = Math.max(1, Math.ceil(720 / setHeight));
+                    
+                    let singleHalfHTML = '';
+                    for (let i = 0; i < setsNeededForHalf; i++) {
+                        singleHalfHTML += generateVerticalHTML();
+                    }
+
+                    // For seamless scrolling (translateY(-50%)), we duplicate the exact half
+                    vertBanner.innerHTML = singleHalfHTML + singleHalfHTML;
+                } else if (vertBanner) {
+                    // Fallback dummy content if no vertical banners yet
+                    const fallbackHTML = `
+                      <div class="banner-item">120 × 720<br />Vertical Ad — Grocery Chains</div>
+                      <div class="banner-item">Mobile Brands • Electronics Retailers</div>
+                      <div class="banner-item">Bank Offers • Credit / Debit Cards</div>
+                      <div class="banner-item">Utility Stores • Wholesale Markets</div>
                     `;
-                };
-
-                renderBanner();
-
-                if (banners.length > 1) {
-                    setInterval(() => {
-                        currentBannerIndex = (currentBannerIndex + 1) % banners.length;
-                        renderBanner();
-                    }, 4500); 
+                    vertBanner.innerHTML = fallbackHTML + fallbackHTML;
                 }
             }
         } catch (e) {

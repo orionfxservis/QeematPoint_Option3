@@ -201,13 +201,30 @@ async function saveBanners() {
 
 function renderBanners() {
     if (!bannerList) return;
-    bannerList.innerHTML = banners.map((banner, index) => `
+    bannerList.innerHTML = banners.map((banner, index) => {
+        let displayType = banner.type;
+        let displayLink = banner.link;
+        
+        // Unpack if backend dropped the type field
+        if (displayLink && typeof displayLink === 'string' && displayLink.includes('|')) {
+            const parts = displayLink.split('|');
+            if (parts[0] === 'vertical' || parts[0] === 'horizontal') {
+                displayType = parts[0];
+                displayLink = parts.slice(1).join('|');
+            }
+        }
+
+        return `
         <div class="banner-item">
-            <img src="${banner.image}" alt="Banner">
-            ${banner.link ? `<a href="${banner.link}" target="_blank" class="banner-link"><i class="fa-solid fa-link"></i> ${banner.link}</a>` : ''}
-            <button class="delete-btn" onclick="deleteBanner(${index})"><i class="fa-solid fa-trash"></i> Delete</button>
+            <div style="margin-bottom: 5px;">
+                <span class="badge" style="background:#0ea5e9; color:white; border-color:#0ea5e9;">${displayType === 'vertical' ? 'Vertical Banner' : 'Horizontal Banner'}</span>
+            </div>
+            <img src="${banner.image}" alt="Banner" style="${displayType === 'vertical' ? 'object-fit: contain; max-height: 150px;' : ''}">
+            ${displayLink ? `<a href="${displayLink}" target="_blank" class="banner-link"><i class="fa-solid fa-link"></i> ${displayLink}</a>` : ''}
+            <button class="delete-btn" onclick="deleteBanner(${index})" style="margin-top: 10px;"><i class="fa-solid fa-trash"></i> Delete</button>
         </div>
-    `).join('');
+        `;
+    }).join('');
 }
 
 async function deleteBanner(index) {
@@ -235,9 +252,13 @@ if (bannerForm) {
     bannerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const image = document.getElementById('bannerImage').value;
-        const link = document.getElementById('bannerLink').value;
+        const rawLink = document.getElementById('bannerLink').value;
+        const type = document.getElementById('bannerType') ? document.getElementById('bannerType').value : 'horizontal';
 
-        banners.push({ image, link });
+        // Workaround: Backend might drop the 'type' field, so we pack it into the 'link' field
+        const link = `${type}|${rawLink}`;
+
+        banners.push({ image, link, type });
         await saveBanners();
         bannerForm.reset();
         updateBannerPreview();
