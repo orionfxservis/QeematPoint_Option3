@@ -6,9 +6,11 @@ let products = [];
 let banners = [];
 let deals = [];
 let users = [];
+let blogs = [];
 let editIndex = -1; // State to track editing
 let userEditIndex = -1; // State to track user editing
 let dealEditIndex = -1; // State to track deal editing
+let blogEditIndex = -1; // State to track blog editing
 
 // DOM Elements
 const categoryForm = document.getElementById('categoryForm');
@@ -30,18 +32,20 @@ const bannerPreview = document.getElementById('bannerPreview');
 
 async function initAdmin() {
     try {
-        [categories, products, banners, deals, users] = await Promise.all([
+        [categories, products, banners, deals, users, blogs] = await Promise.all([
             DataService.getCategories(),
             DataService.getProducts(),
             DataService.getBanners(),
             DataService.getDeals(),
-            DataService.getUsers()
+            DataService.getUsers(),
+            DataService.getBlogs()
         ]);
 
         updateUI();
         renderBanners();
         renderDeals();
         renderUsers();
+        renderBlogs();
         renderAdminProducts(); // New function for products
         populateCategoryDropdown(); // New function for form
 
@@ -1213,3 +1217,104 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+// --- Blogs Functions ---
+const blogForm = document.getElementById('blogForm');
+const blogList = document.getElementById('blogList');
+const blogFormTitle = document.getElementById('blogFormTitle');
+const btnCancelBlog = document.getElementById('btnCancelBlog');
+const btnSaveBlog = document.getElementById('btnSaveBlog');
+
+async function saveBlogs() {
+    await DataService.saveBlogs(blogs);
+    renderBlogs();
+}
+
+function renderBlogs() {
+    if (!blogList) return;
+    blogList.innerHTML = blogs.map((blog, index) => `
+        <div class="product-row" style="grid-template-columns: 80px 1fr 1fr 120px;">
+            <img src="${blog.image}" alt="Blog" style="width: 100%; height: 60px; object-fit: cover; border-radius: 8px;">
+            <div>
+                <strong>${blog.titleEn}</strong><br>
+                <span style="font-family: 'Jameel Noori Nastaleeq', var(--font-ur); font-size: 1.1rem;">${blog.titleUr}</span>
+            </div>
+            <div>
+                <span style="color: var(--primary-color); font-weight:bold;">${blog.author}</span><br>
+                <small style="color: #aaa;">${new Date(blog.date).toLocaleDateString()}</small>
+            </div>
+            <div>
+                <button class="edit-btn" onclick="editBlog(${index})"><i class="fa-solid fa-pen"></i></button>
+                <button class="delete-btn" onclick="deleteBlog(${index})"><i class="fa-solid fa-trash"></i></button>
+            </div>
+        </div>
+    `).join('');
+}
+
+window.deleteBlog = async (index) => {
+    if (confirm('Delete this blog post?')) {
+        blogs.splice(index, 1);
+        await saveBlogs();
+    }
+};
+
+window.editBlog = (index) => {
+    blogEditIndex = index;
+    const blog = blogs[index];
+
+    document.getElementById('blogImage').value = blog.image || '';
+    document.getElementById('blogAuthor').value = blog.author || '';
+    document.getElementById('blogCategoryEn').value = blog.categoryEn || '';
+    document.getElementById('blogCategoryUr').value = blog.categoryUr || '';
+    document.getElementById('blogTitleEn').value = blog.titleEn || '';
+    document.getElementById('blogTitleUr').value = blog.titleUr || '';
+    document.getElementById('blogDescEn').value = blog.descEn || '';
+    document.getElementById('blogDescUr').value = blog.descUr || '';
+    document.getElementById('blogContentEn').value = blog.contentEn || '';
+    document.getElementById('blogContentUr').value = blog.contentUr || '';
+
+    if (blogFormTitle) blogFormTitle.textContent = "Edit Blog Post";
+    if (btnSaveBlog) btnSaveBlog.textContent = "Update Publish";
+    if (btnCancelBlog) btnCancelBlog.style.display = 'inline-block';
+
+    document.getElementById('blogs').querySelector('.form-container').scrollIntoView({ behavior: 'smooth' });
+};
+
+window.cancelBlogEdit = () => {
+    blogEditIndex = -1;
+    if (blogForm) blogForm.reset();
+    if (blogFormTitle) blogFormTitle.textContent = "Add New Blog Post";
+    if (btnSaveBlog) btnSaveBlog.textContent = "Publish";
+    if (btnCancelBlog) btnCancelBlog.style.display = 'none';
+};
+
+if (blogForm) {
+    blogForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const newBlog = {
+            id: blogEditIndex === -1 ? Date.now() : blogs[blogEditIndex].id,
+            image: document.getElementById('blogImage').value,
+            author: document.getElementById('blogAuthor').value,
+            categoryEn: document.getElementById('blogCategoryEn').value,
+            categoryUr: document.getElementById('blogCategoryUr').value,
+            titleEn: document.getElementById('blogTitleEn').value,
+            titleUr: document.getElementById('blogTitleUr').value,
+            descEn: document.getElementById('blogDescEn').value,
+            descUr: document.getElementById('blogDescUr').value,
+            contentEn: document.getElementById('blogContentEn').value,
+            contentUr: document.getElementById('blogContentUr').value,
+            date: blogEditIndex === -1 ? Date.now() : blogs[blogEditIndex].date
+        };
+
+        if (blogEditIndex === -1) {
+            blogs.push(newBlog);
+        } else {
+            blogs[blogEditIndex] = newBlog;
+            cancelBlogEdit();
+        }
+
+        await saveBlogs();
+        if (blogEditIndex === -1) blogForm.reset();
+        alert('Blog published successfully!');
+    });
+}

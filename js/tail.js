@@ -32,20 +32,20 @@ document.addEventListener('DOMContentLoaded', async () => {
                     'properties': '\uD83C\uDFE0'
                 };
                 
-                catGrid.innerHTML = categories.map(cat => {
-                    const icon = iconMap[cat.name.toLowerCase()] || '\uD83D\uDCE6';
-                    const link = cat.name.toLowerCase() === 'food' ? 'pages/food.html' : 'javascript:void(0)';
-                    return `
-                      <article class="glass-card p-4 hover:-translate-y-1 transition transform" onclick="window.location.href='${link}'" style="cursor:pointer; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; background: rgba(15, 23, 42, 0.4);">
-                        <div class="flex items-center justify-between mb-2">
-                          <div class="w-10 h-10 rounded-2xl bg-slate-800 flex items-center justify-center text-xl">${icon}</div>
-                        </div>
-                        <h3 class="font-bold text-slate-100 flex items-center gap-1" style="font-size: 1.1rem; line-height: 1.2;">
-                           ${cat.name}
-                        </h3>
-                      </article>
-                    `;
-                }).join('');
+                // catGrid.innerHTML = categories.map(cat => {
+                //     const icon = iconMap[cat.name.toLowerCase()] || '📦';
+                //     const link = cat.name.toLowerCase() === 'food' ? 'pages/food.html' : 'javascript:void(0)';
+                //     return `
+                //       <article class="glass-card p-4 hover:-translate-y-1 transition transform" onclick="window.location.href='${link}'" style="cursor:pointer; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; background: rgba(15, 23, 42, 0.4);">
+                //         <div class="flex items-center justify-between mb-2">
+                //           <div class="w-10 h-10 rounded-2xl bg-slate-800 flex items-center justify-center text-xl">${icon}</div>
+                //         </div>
+                //         <h3 class="font-bold text-slate-100 flex items-center gap-1" style="font-size: 1.1rem; line-height: 1.2;">
+                //            ${cat.name}
+                //         </h3>
+                //       </article>
+                //     `;
+                // }).join('');
             }
         } catch (e) {
             console.error("Failed to map dynamic categories", e);

@@ -380,22 +380,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     'personal care': '🧴',
                     'kids': '🧸'
                 };
-                if (catGrid) {
-                    catGrid.innerHTML = visibleCategories.map(cat => {
-                        const icon = iconMap[cat.name.toLowerCase()] || '\uD83D\uDCE6';
-                        const link = cat.name.toLowerCase() === 'food' ? 'pages/food.html' : 'javascript:void(0)';
-                        return `
-                        <article class="glass-card p-4 hover:-translate-y-1 transition transform" style="cursor: pointer;" onclick="window.location.href='${link}'">
-                            <div class="flex items-center justify-between mb-2">
-                                <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-xl">${icon}</div>
-                            </div>
-                            <h3 class="font-semibold mb-1 text-slate-50">${cat.name}</h3>
-                            <button class="text-xs font-semibold text-emerald-300 hover:text-emerald-200 mt-2 flex items-center gap-1">
-                                Explore / دیکھیں <span>→</span>
-                            </button>
-                        </article>
-                    `}).join('');
-                }
+                // if (catGrid) {
+                //     catGrid.innerHTML = visibleCategories.map(cat => {
+                //         const icon = iconMap[cat.name.toLowerCase()] || '📦';
+                //         const link = cat.name.toLowerCase() === 'food' ? 'pages/food.html' : 'javascript:void(0)';
+                //         return `
+                //         <article class="glass-card p-4 hover:-translate-y-1 transition transform" style="cursor: pointer;" onclick="window.location.href='${link}'">
+                //             <div class="flex items-center justify-between mb-2">
+                //                 <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-xl">${icon}</div>
+                //             </div>
+                //             <h3 class="font-semibold mb-1 text-slate-50">${cat.name}</h3>
+                //             <button class="text-xs font-semibold text-emerald-300 hover:text-emerald-200 mt-2 flex items-center gap-1">
+                //                 Explore / دیکھیں <span>→</span>
+                //             </button>
+                //         </article>
+                //     `}).join('');
+                // }
 
                 if (topPills) {
                     const topStyles = [
@@ -460,12 +460,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     adBanner.style.background = 'transparent';
                     adBanner.style.border = 'none';
                     adBanner.style.color = 'transparent';
-                    adBanner.innerHTML = '';
+                    adBanner.style.overflow = 'hidden';
+                    adBanner.setAttribute('dir', 'ltr');
                     
-                    let currentBannerIndex = 0;
+                    const bannersToShow = horizBanners.slice(0, 4);
                     
-                    const renderBanner = () => {
-                        const b = horizBanners[currentBannerIndex];
+                    if (bannersToShow.length === 1) {
+                        const b = bannersToShow[0];
                         const clickTarget = b.link ? b.link : 'javascript:void(0)';
                         const cursor = b.link ? 'pointer' : 'default';
                         adBanner.innerHTML = `
@@ -473,15 +474,48 @@ document.addEventListener('DOMContentLoaded', () => {
                              <img src="${b.image}" alt="Promotional Banner" style="width:100%; height:100%; object-fit: fill; border-radius: 1rem; transition: opacity 0.5s ease;" onerror="this.src='https://picsum.photos/720/120'"/>
                           </a>
                         `;
-                    };
+                    } else {
+                        const numBanners = bannersToShow.length;
+                        const trackWidth = numBanners * 2 * 100;
+                        const itemWidth = 100 / (numBanners * 2);
 
-                    renderBanner();
+                        const generateHorizontalHTML = () => {
+                            return bannersToShow.map(b => {
+                                const clickTarget = b.link ? b.link : 'javascript:void(0)';
+                                const cursor = b.link ? 'pointer' : 'default';
+                                return `
+                                  <div style="width: ${itemWidth}%; height: 100%; flex-shrink: 0; padding-right: 8px; box-sizing: border-box;">
+                                    <a href="${clickTarget}" style="display:block; width:100%; height:100%; overflow:hidden; border-radius: 1rem; cursor: ${cursor}; text-decoration: none;">
+                                       <img src="${b.image}" alt="Promotional Banner" style="width:100%; height:100%; object-fit: fill; border-radius: 1rem;" onerror="this.src='https://picsum.photos/720/120'"/>
+                                    </a>
+                                  </div>
+                                `;
+                            }).join('');
+                        };
 
-                    if (horizBanners.length > 1) {
-                        setInterval(() => {
-                            currentBannerIndex = (currentBannerIndex + 1) % horizBanners.length;
-                            renderBanner();
-                        }, 4500); 
+                        adBanner.innerHTML = `
+                          <style>
+                            @keyframes horizontalLoopAnim {
+                              0% { transform: translateX(0); }
+                              100% { transform: translateX(-50%); }
+                            }
+                            .banner-horizontal-track {
+                              display: flex;
+                              direction: ltr;
+                              height: 100%;
+                              width: ${trackWidth}%;
+                              animation: horizontalLoopAnim ${numBanners * 6}s linear infinite;
+                              will-change: transform;
+                            }
+                            .banner-horizontal-track:hover {
+                              animation-play-state: paused;
+                            }
+                          </style>
+                          <div class="banner-horizontal-track">
+                            ${generateHorizontalHTML()}
+                            ${generateHorizontalHTML()}
+                          </div>
+                        `;
                     }
                 }
 
@@ -528,5 +562,93 @@ document.addEventListener('DOMContentLoaded', () => {
         }).catch(e => {
             console.error("Failed to map banners", e);
         });
+    }
+
+    // --- Dynamic Blog Injection ---
+    if (document.getElementById('dynamicBlogGrid')) {
+        DataService.getBlogs().then(blogs => {
+            const container = document.getElementById('dynamicBlogGrid');
+            if (blogs && blogs.length > 0) {
+                // Determine text direction/language based on current setting (lang-en or lang-ur)
+                const htmlStr = blogs.map(b => {
+                    // Assuming blog data holds: image, titleEn, titleUr, contentEn, contentUr, author
+                    const safeObj = encodeURIComponent(JSON.stringify(b));
+                    return `
+                      <article class="glass-card p-0 overflow-hidden hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-900/80 transition flex flex-col">
+                        <div class="w-full aspect-video">
+                          <img src="${b.image}" alt="Blog Image" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <p class="text-[0.65rem] text-sky-300 mb-1">
+                                <span class="lang-en">${b.categoryEn || 'Uncategorized'}</span>
+                                <span class="lang-ur">${b.categoryUr || 'غیر درجہ بند'}</span>
+                            </p>
+                            <h3 class="font-semibold text-sm text-slate-50 mb-1">
+                                <span class="lang-en">${b.titleEn}</span><span class="lang-ur">${b.titleUr}</span>
+                            </h3>
+                            <p class="text-[0.7rem] text-slate-400 mb-2">
+                                <span class="lang-en">${b.descEn || ''}</span><span class="lang-ur">${b.descUr || ''}</span>
+                            </p>
+                            <button onclick="openBlogModal('${safeObj}')" class="mt-auto self-start text-[0.7rem] text-sky-300 hover:text-sky-200">
+                                <span class="lang-en">Read More &rarr;</span><span class="lang-ur">مزید پڑھیں &larr;</span>
+                            </button>
+                        </div>
+                      </article>
+                    `;
+                }).join('');
+                container.innerHTML = htmlStr;
+            } else {
+                container.innerHTML = `
+                    <p class="text-slate-500 col-span-full text-center py-4">
+                        <span class="lang-en">No blogs available at the moment.</span><span class="lang-ur">فی الحال کوئی بلاگ دستیاب نہیں ہے۔</span>
+                    </p>`;
+            }
+        }).catch(e => {
+            console.error("Failed to load blogs", e);
+        });
+    }
+});
+
+// --- Blog Modal Functions ---
+window.openBlogModal = function(safeObj) {
+    const blogData = JSON.parse(decodeURIComponent(safeObj));
+    const modal = document.getElementById('blogModal');
+    
+    document.getElementById('modalBlogImage').src = blogData.image;
+    
+    // Switch title and content based on current language
+    const currentLang = document.documentElement.lang || 'en';
+    if (currentLang === 'ur') {
+        document.getElementById('modalBlogTitle').textContent = blogData.titleUr;
+        document.getElementById('modalBlogContent').textContent = blogData.contentUr;
+        document.getElementById('modalBlogContent').setAttribute('dir', 'rtl');
+        document.getElementById('modalBlogTitle').setAttribute('dir', 'rtl');
+    } else {
+        document.getElementById('modalBlogTitle').textContent = blogData.titleEn;
+        document.getElementById('modalBlogContent').textContent = blogData.contentEn;
+        document.getElementById('modalBlogContent').setAttribute('dir', 'ltr');
+        document.getElementById('modalBlogTitle').setAttribute('dir', 'ltr');
+    }
+
+    document.getElementById('modalBlogAuthor').textContent = blogData.author;
+    
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+};
+
+window.closeBlogModal = function() {
+    const modal = document.getElementById('blogModal');
+    modal.classList.add('hidden');
+    document.body.style.overflow = 'auto'; // Restore background scrolling
+};
+
+// Close modal when clicking outside the content area
+document.addEventListener('click', function(e) {
+    const modal = document.getElementById('blogModal');
+    if (modal && !modal.classList.contains('hidden')) {
+        // If the click is exactly on the background overlay, close it
+        if (e.target === modal) {
+            closeBlogModal();
+        }
     }
 });

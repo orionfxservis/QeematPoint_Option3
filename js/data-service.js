@@ -109,6 +109,17 @@ const DataService = {
         return res.message;
     },
 
+    // --- Blogs ---
+
+    getBlogs: async () => {
+        return await DataService._fetchGET('getBlogs');
+    },
+
+    saveBlogs: async (blogs) => {
+        const res = await DataService._fetchPOST('saveBlogs', blogs);
+        return res.message;
+    },
+
     // --- Users / Auth ---
 
     getUsers: async () => {
