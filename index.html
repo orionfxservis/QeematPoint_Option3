@@ -347,6 +347,58 @@
           <div id="dynamicHorizontalBanner" class="banner-horizontal">
             720 × 120 | Horizontal Ad Space — مقامی دکانیں، سپر اسٹورز یا برانڈ بینرز
           </div>
+
+          <!-- Travel Section (Injected below Banner) -->
+          <div id="travelSection" class="mt-6 flex-1 glass-card p-4 sm:p-5 relative overflow-hidden flex flex-col travel-guide-box hide-scrollbar" style="max-height: 800px; overflow-y: auto;">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-lg sm:text-xl font-bold text-slate-100 flex items-center gap-2">
+                ✈️ <span class="lang-en">Travel & Tours</span><span class="lang-ur">سفر اور ٹورز</span>
+              </h2>
+              <span class="px-2 py-1 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/40 text-[0.7rem] font-semibold">
+                Explore Packages
+              </span>
+            </div>
+
+            <!-- Filters -->
+            <div class="flex flex-wrap gap-2 mb-4 items-center justify-between w-full">
+              <div class="flex gap-2">
+                <select id="travelFilterCategory" class="bg-slate-900/70 border border-slate-700 rounded-lg text-xs px-3 py-1.5 text-slate-200 outline-none focus:border-indigo-400">
+                  <option value="All">All Categories</option>
+                  <option value="Hajj">Hajj</option>
+                  <option value="Umrah">Umrah</option>
+                  <option value="Pakistan Tour">Pakistan Tour</option>
+                  <option value="International Tour">International Tour</option>
+                </select>
+                <select id="travelFilterCity" class="bg-slate-900/70 border border-slate-700 rounded-lg text-xs px-3 py-1.5 text-slate-200 outline-none focus:border-indigo-400">
+                  <option value="All">All Cities</option>
+                  <!-- Dynamic cities will be populated here -->
+                </select>
+              </div>
+              <a href="pages/submit-travel.html" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-3 py-1.5 rounded-lg shadow-lg font-bold transition flex items-center gap-1">
+                <i class="fa-solid fa-plus"></i> Add Package
+              </a>
+            </div>
+
+            <!-- Featured Packages Slider (Horizontal Scroll) -->
+            <div class="mb-6">
+              <h3 class="text-sm font-semibold text-slate-300 mb-2 flex items-center gap-1">
+                ⭐ <span class="lang-en">Featured Packages</span><span class="lang-ur">نمایاں پیکجز</span>
+              </h3>
+              <div id="featuredTravelList" class="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
+                <!-- Featured Cards Injected Here -->
+              </div>
+            </div>
+
+            <!-- Latest Packages List (Vertical) -->
+            <div>
+              <h3 class="text-sm font-semibold text-slate-300 mb-2 flex items-center gap-1">
+                📦 <span class="lang-en">Latest Listings</span><span class="lang-ur">تازہ ترین لسٹنگز</span>
+              </h3>
+              <div id="latestTravelList" class="flex flex-col gap-3">
+                <!-- Normal Cards Injected Here -->
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Right: Product List + Vertical Banner -->

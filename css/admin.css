@@ -43,6 +43,16 @@
 .menu {
     list-style: none;
     padding: 0;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.menu::-webkit-scrollbar {
+    width: 4px;
+}
+.menu::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.3);
+    border-radius: 4px;
 }
 
 .menu li {
@@ -345,6 +355,42 @@ h3 {
     border-color: #ff006e;
 }
 
+/* General Form Styles */
+.form-container {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.travel-form {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.admin-input {
+    width: 100%;
+    padding: 8px 12px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: #f8fafc;
+    font-size: 0.85rem;
+    transition: all 0.3s;
+}
+
+.admin-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.2);
+}
+
 /* Lists */
 .list-container {
     background: var(--card-bg);
@@ -526,4 +572,34 @@ h3 {
 
 .banner-link:hover {
     text-decoration: underline;
+}
+
+/* Blog Category Tags & Status */
+.category-tag {
+    background: #64748b;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    display: inline-block;
+    white-space: nowrap;
+}
+.category-tag.grocery { background: #16a34a; }
+.category-tag.electronics { background: #2563eb; }
+.category-tag.fashion { background: #db2777; }
+.category-tag.news { background: #ea580c; }
+.category-tag.tips { background: #8b5cf6; }
+
+.status-tag {
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-block;
+}
+.status-tag.publish { background: rgba(22, 163, 74, 0.2); color: #4ade80; border: 1px solid #16a34a; }
+.status-tag.draft { background: rgba(234, 179, 8, 0.2); color: #fde047; border: 1px solid #eab308; }
+
+.blog-row {
+    grid-template-columns: 40px 60px 2fr 1fr 1fr 80px 100px 100px !important;
 }

@@ -652,3 +652,98 @@ document.addEventListener('click', function(e) {
         }
     }
 });
+
+// --- Dynamic Travel Section Injection ---
+document.addEventListener('DOMContentLoaded', () => {
+    const featuredTravelList = document.getElementById('featuredTravelList');
+    const latestTravelList = document.getElementById('latestTravelList');
+    const travelFilterCategory = document.getElementById('travelFilterCategory');
+    const travelFilterCity = document.getElementById('travelFilterCity');
+
+    if ((featuredTravelList || latestTravelList) && typeof DataService !== 'undefined') {
+        let allPackages = [];
+
+        function renderTravelUI() {
+            if (!allPackages || allPackages.length === 0) {
+                if (featuredTravelList) featuredTravelList.innerHTML = `<p class="text-slate-500 text-xs">No featured packages available.</p>`;
+                if (latestTravelList) latestTravelList.innerHTML = `<p class="text-slate-500 text-xs">No latest packages available.</p>`;
+                return;
+            }
+
+            const catFilter = travelFilterCategory ? travelFilterCategory.value : 'All';
+            const cityFilter = travelFilterCity ? travelFilterCity.value : 'All';
+
+            let filtered = allPackages.filter(p => p.status === 'Publish');
+
+            if (catFilter !== 'All') {
+                filtered = filtered.filter(p => p.category === catFilter);
+            }
+            if (cityFilter !== 'All') {
+                filtered = filtered.filter(p => p.departure === cityFilter);
+            }
+
+            const featured = filtered.filter(p => p.listingType === 'Featured');
+            const normal = filtered.filter(p => p.listingType !== 'Featured');
+
+            // Render Featured
+            if (featuredTravelList) {
+                if (featured.length === 0) {
+                    featuredTravelList.innerHTML = `<p class="text-slate-500 text-xs">No featured packages found.</p>`;
+                } else {
+                    featuredTravelList.innerHTML = featured.map(p => `
+                        <div class="travel-card featured">
+                          <img src="${p.image}" alt="${p.title}" onerror="this.src='https://picsum.photos/300/150'">
+                          <h3>${p.title} ${p.verified === 'Yes' ? '✅' : ''}</h3>
+                          <p>${p.departure} &rarr; ${p.destination}</p>
+                          <p>Duration: ${p.duration} Days</p>
+                          <h4>Rs ${Number(p.price).toLocaleString()}</h4>
+                          <button class="travel-btn whatsapp" onclick="window.open('https://wa.me/${String(p.whatsapp || '').replace(/\D/g,'')}','_blank')">Contact</button>
+                          <button class="travel-btn details">View Details</button>
+                        </div>
+                    `).join('');
+                }
+            }
+
+            // Render Normal
+            if (latestTravelList) {
+                if (normal.length === 0) {
+                    latestTravelList.innerHTML = `<p class="text-slate-500 text-xs">No latest packages found.</p>`;
+                } else {
+                    latestTravelList.innerHTML = normal.map(p => `
+                        <div class="travel-card">
+                          <img src="${p.image}" alt="${p.title}" onerror="this.src='https://picsum.photos/120/120'">
+                          <h3>${p.title} ${p.verified === 'Yes' ? '✅' : ''}</h3>
+                          <p>${p.departure} &rarr; ${p.destination}</p>
+                          <p>Duration: ${p.duration} Days</p>
+                          <h4>Rs ${Number(p.price).toLocaleString()}</h4>
+                          <button class="travel-btn whatsapp" onclick="window.open('https://wa.me/${String(p.whatsapp || '').replace(/\D/g,'')}','_blank')">Contact</button>
+                          <button class="travel-btn details">View Details</button>
+                        </div>
+                    `).join('');
+                }
+            }
+        }
+
+        DataService.getTravelPackages().then(packages => {
+            allPackages = packages || [];
+            
+            // Populate dynamic cities in filter
+            if (travelFilterCity && allPackages.length > 0) {
+                const cities = [...new Set(allPackages.map(p => p.departure))];
+                let cityOptions = '<option value="All">All Cities</option>';
+                cities.forEach(city => {
+                    if (city) cityOptions += `<option value="${city}">${city}</option>`;
+                });
+                travelFilterCity.innerHTML = cityOptions;
+            }
+
+            renderTravelUI();
+
+            if (travelFilterCategory) travelFilterCategory.addEventListener('change', renderTravelUI);
+            if (travelFilterCity) travelFilterCity.addEventListener('change', renderTravelUI);
+
+        }).catch(e => {
+            console.error("Failed to load travel packages", e);
+        });
+    }
+});

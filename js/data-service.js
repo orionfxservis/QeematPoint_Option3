@@ -120,6 +120,17 @@ const DataService = {
         return res.message;
     },
 
+    // --- Travel Packages ---
+
+    getTravelPackages: async () => {
+        return await DataService._fetchGET('getTravelPackages');
+    },
+
+    saveTravelPackages: async (travelPackages) => {
+        const res = await DataService._fetchPOST('saveTravelPackages', travelPackages);
+        return res.message;
+    },
+
     // --- Users / Auth ---
 
     getUsers: async () => {
