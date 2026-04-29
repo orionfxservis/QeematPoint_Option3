@@ -1,0 +1,9 @@
+{
+  "name": "dc-price-fetch",
+  "version": "1.0.0",
+  "main": "cron-fetch.js",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.0.0",
+    "node-fetch": "^2.6.7"
+  }
+}
