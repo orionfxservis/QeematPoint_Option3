@@ -15,6 +15,8 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 
+<audio id="clickSound" src="click.mp3"></audio>
+
 <body class="text-slate-100">
   <!-- Floating Balloon Layer -->
   <div class="balloon-layer" aria-hidden="true"></div>
@@ -60,12 +62,15 @@
   <header class="sticky top-0 z-30 border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-xl">
     <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <img src="images/logo/stopbuy-logo.png" alt="StopBuy Logo" class="h-10 w-auto object-contain rounded-lg bg-white p-1 shadow-lg shadow-emerald-500/20">
+        <img src="images/logo/stopbuy-logo.png" alt="StopBuy Logo"
+          class="h-10 w-auto object-contain rounded-lg bg-white p-1 shadow-lg shadow-emerald-500/20">
         <div class="leading-tight">
           <div class="flex items-end gap-1">
-            <span class="text-lg sm:text-xl font-bold gradient-text"><span class="lang-en">StopBuy</span><span class="lang-ur">اسٹاپ بائے</span></span>
+            <span class="text-lg sm:text-xl font-bold gradient-text"><span class="lang-en">StopBuy</span><span
+                class="lang-ur">اسٹاپ بائے</span></span>
           </div>
-          <p class="text-xs text-slate-400 hidden sm:block"><span class="lang-en">Smart Price Comparison for Pakistan</span><span class="lang-ur">پاکستان کے لیے اسمارٹ پرائس کمپیرزن</span></p>
+          <p class="text-xs text-slate-400 hidden sm:block"><span class="lang-en">Smart Price Comparison for
+              Pakistan</span><span class="lang-ur">پاکستان کے لیے اسمارٹ پرائس کمپیرزن</span></p>
         </div>
       </div>
       <div class="hidden md:flex items-center gap-6 text-sm font-medium">
@@ -256,11 +261,12 @@
             </span>
           </h1>
           <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6 max-w-xl">
-            <span class="lang-en">Compare prices, save money, buy smart.</span><span class="lang-ur">قیمتوں کا موازنہ کریں، پیسے بچائیں، سمجھداری سے خریدیں۔</span>
+            <span class="lang-en">Compare Prices, Save Money, Buy Smart.</span><span class="lang-ur">قیمتوں کا موازنہ
+              کریں، پیسے بچائیں، سمجھداری سے خریدیں۔</span>
           </p>
 
           <!-- Search Panel -->
-          <div class="glass-card p-4 sm:p-5 mb-6 relative">
+          <div class="glass-card p-4 sm:p-5 mb-6 relative z-30">
             <div class="flex flex-col sm:flex-row gap-3 sm:items-center mb-3">
               <!-- Category dropdown -->
               <div
@@ -277,45 +283,42 @@
                 <!-- Dropdown menu -->
                 <div id="categoryMenu"
                   class="hidden absolute left-0 sm:left-auto right-0 top-full mt-2 w-full sm:w-56 category-menu rounded-2xl border border-slate-700 bg-slate-950 shadow-2xl shadow-slate-900/90 z-20">
-                  <button data-category="all"
-                    class="w-full text-right px-3 py-2 text-xs text-slate-200 hover:bg-slate-800/80">
-                    All Categories / تمام کیٹگریز
-                  </button>
+
                   <button data-category="food"
-                    class="w-full text-right px-3 py-2 text-xs text-slate-200 hover:bg-slate-800/80">
-                    Food / فوڈ
+                    class="w-full text-start px-3 py-2 text-xs text-slate-200 hover:bg-slate-800/80">
+                    <span class="lang-en">Food</span><span class="lang-ur">فوڈ</span>
                   </button>
                   <button data-category="vehicles"
-                    class="w-full text-right px-3 py-2 text-xs text-slate-200 hover:bg-slate-800/80">
-                    Vehicles / گاڑیاں
+                    class="w-full text-start px-3 py-2 text-xs text-slate-200 hover:bg-slate-800/80">
+                    <span class="lang-en">Vehicles</span><span class="lang-ur">گاڑیاں</span>
                   </button>
                   <button data-category="grocery"
-                    class="w-full text-right px-3 py-2 text-xs text-slate-200 hover:bg-slate-800/80">
-                    Grocery / گروسری
+                    class="w-full text-start px-3 py-2 text-xs text-slate-200 hover:bg-slate-800/80">
+                    <span class="lang-en">Grocery</span><span class="lang-ur">گروسری</span>
                   </button>
                   <button data-category="fruits"
-                    class="w-full text-right px-3 py-2 text-xs text-slate-200 hover:bg-slate-800/80">
-                    Fruits / پھل
+                    class="w-full text-start px-3 py-2 text-xs text-slate-200 hover:bg-slate-800/80">
+                    <span class="lang-en">Fruits</span><span class="lang-ur">پھل</span>
                   </button>
                   <button data-category="mobiles"
-                    class="w-full text-right px-3 py-2 text-xs text-slate-200 hover:bg-slate-800/80">
-                    Mobiles / موبائیل
+                    class="w-full text-start px-3 py-2 text-xs text-slate-200 hover:bg-slate-800/80">
+                    <span class="lang-en">Mobiles</span><span class="lang-ur">موبائیل</span>
                   </button>
                   <button data-category="property"
-                    class="w-full text-right px-3 py-2 text-xs text-slate-200 hover:bg-slate-800/80">
-                    Property / پراپرٹی
+                    class="w-full text-start px-3 py-2 text-xs text-slate-200 hover:bg-slate-800/80">
+                    <span class="lang-en">Property</span><span class="lang-ur">پراپرٹی</span>
                   </button>
                   <button data-category="personal"
-                    class="w-full text-right px-3 py-2 text-xs text-slate-200 hover:bg-slate-800/80">
-                    Personal Care / ذاتی نگہداشت
+                    class="w-full text-start px-3 py-2 text-xs text-slate-200 hover:bg-slate-800/80">
+                    <span class="lang-en">Personal Care</span><span class="lang-ur">ذاتی نگہداشت</span>
                   </button>
                   <button data-category="electronics"
-                    class="w-full text-right px-3 py-2 text-xs text-slate-200 hover:bg-slate-800/80">
-                    Electronics / الیکٹرونکس
+                    class="w-full text-start px-3 py-2 text-xs text-slate-200 hover:bg-slate-800/80">
+                    <span class="lang-en">Electronics</span><span class="lang-ur">الیکٹرونکس</span>
                   </button>
                   <button data-category="kids"
-                    class="w-full text-right px-3 py-2 text-xs text-slate-200 hover:bg-slate-800/80">
-                    Kids / کڈذ
+                    class="w-full text-start px-3 py-2 text-xs text-slate-200 hover:bg-slate-800/80">
+                    <span class="lang-en">Kids</span><span class="lang-ur">کڈذ</span>
                   </button>
                 </div>
               </div>
@@ -346,6 +349,58 @@
           <div id="dynamicHorizontalBanner" class="banner-horizontal">
             720 × 120 | Horizontal Ad Space — مقامی دکانیں، سپر اسٹورز یا برانڈ بینرز
           </div>
+
+          <!-- Travel Section (Injected below Banner) -->
+          <div id="travelSection" class="mt-6 flex-1 glass-card p-4 sm:p-5 relative overflow-hidden flex flex-col travel-guide-box hide-scrollbar" style="max-height: 800px; overflow-y: auto;">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-lg sm:text-xl font-bold text-slate-100 flex items-center gap-2">
+                ✈️ <span class="lang-en">Travel & Tours</span><span class="lang-ur">سفر اور ٹورز</span>
+              </h2>
+              <span class="px-2 py-1 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/40 text-[0.7rem] font-semibold">
+                Explore Packages
+              </span>
+            </div>
+
+            <!-- Filters -->
+            <div class="flex flex-wrap gap-2 mb-4 items-center justify-between w-full">
+              <div class="flex gap-2">
+                <select id="travelFilterCategory" class="bg-slate-900/70 border border-slate-700 rounded-lg text-xs px-3 py-1.5 text-slate-200 outline-none focus:border-indigo-400">
+                  <option value="All">All Categories</option>
+                  <option value="Hajj">Hajj</option>
+                  <option value="Umrah">Umrah</option>
+                  <option value="Pakistan Tour">Pakistan Tour</option>
+                  <option value="International Tour">International Tour</option>
+                </select>
+                <select id="travelFilterCity" class="bg-slate-900/70 border border-slate-700 rounded-lg text-xs px-3 py-1.5 text-slate-200 outline-none focus:border-indigo-400">
+                  <option value="All">All Cities</option>
+                  <!-- Dynamic cities will be populated here -->
+                </select>
+              </div>
+              <a href="pages/submit-travel.html" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-3 py-1.5 rounded-lg shadow-lg font-bold transition flex items-center gap-1">
+                <i class="fa-solid fa-plus"></i> Add Package
+              </a>
+            </div>
+
+            <!-- Featured Packages Slider (Horizontal Scroll) -->
+            <div class="mb-6">
+              <h3 class="text-sm font-semibold text-slate-300 mb-2 flex items-center gap-1">
+                ⭐ <span class="lang-en">Featured Packages</span><span class="lang-ur">نمایاں پیکجز</span>
+              </h3>
+              <div id="featuredTravelList" class="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
+                <!-- Featured Cards Injected Here -->
+              </div>
+            </div>
+
+            <!-- Latest Packages List (Vertical) -->
+            <div>
+              <h3 class="text-sm font-semibold text-slate-300 mb-2 flex items-center gap-1">
+                📦 <span class="lang-en">Latest Listings</span><span class="lang-ur">تازہ ترین لسٹنگز</span>
+              </h3>
+              <div id="latestTravelList" class="flex flex-col gap-3">
+                <!-- Normal Cards Injected Here -->
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Right: Product List + Vertical Banner -->
@@ -370,11 +425,12 @@
               <div class="border border-slate-800 rounded-xl overflow-x-auto text-xs sm:text-sm flex-1">
                 <div class="min-w-[450px]">
                   <div class="grid grid-cols-12 bg-slate-900/80 text-slate-300 font-semibold px-2 sm:px-3 py-2">
-                    <div class="col-span-5">Item / آئٹم</div>
-                    <div class="col-span-3 text-center">Area / علاقہ</div>
-                    <div class="col-span-2 text-center">Distance</div>
-                    <div class="col-span-2 text-right">Price (Rs)</div>
-                  </div>
+  <div class="col-span-4">Item / آئٹم</div>
+  <div class="col-span-2 text-center">Area / علاقہ</div>
+  <div class="col-span-2 text-center">Unit</div>
+  <div class="col-span-2 text-center">Price (Rs)</div>
+  <div class="col-span-2 text-right">Previous Price</div>
+</div>
                   <div id="productRows" class="divide-y divide-slate-800/80 bg-slate-950/70 block w-full">
                     <!-- JS will render rows -->
                   </div>
@@ -408,8 +464,11 @@
               <span class="lang-en">Shop by Category</span><span class="lang-ur">اقسام کے مطابق خریداری کریں</span>
             </h2>
             <p class="text-slate-400 text-sm mt-1 max-w-2xl">
-              <span class="lang-en">From everyday groceries to electronics 📱, get the real market prices 💰 of everything with a single click 👆. Rates from major cities 🏙️ and local markets 🏪 across Pakistan.</span>
-              <span class="lang-ur">روز مرہ گروسری سے لے کر الیکٹرونکس تک، ہر چیز کی اصل مارکیٹ قیمت ایک کلک پر۔ پاکستان کے بڑے شہروں اور مقامی بازاروں کے ریٹس۔</span>
+              <span class="lang-en">From everyday groceries to electronics 📱, get the real market prices 💰 of
+                everything with a single click 👆. Rates from major cities 🏙️ and local markets 🏪 across
+                Pakistan.</span>
+              <span class="lang-ur">روز مرہ گروسری سے لے کر الیکٹرونکس تک، ہر چیز کی اصل مارکیٹ قیمت ایک کلک پر۔ پاکستان
+                کے بڑے شہروں اور مقامی بازاروں کے ریٹس۔</span>
             </p>
           </div>
           <button
@@ -424,14 +483,17 @@
             <div class="flex items-center justify-between mb-2">
               <div class="w-10 h-10 rounded-2xl bg-yellow-500/10 flex items-center justify-center text-xl">🍔</div>
             </div>
-            <h3 class="font-semibold mb-1 text-slate-50">Food / فوڈ</h3>
+            <h3 class="font-semibold mb-1 text-slate-50">
+              <span class="lang-en">Food</span><span class="lang-ur">فوڈ</span>
+            </h3>
             <p class="text-xs text-slate-400 mb-3">
-              تیار کھانا، فاسٹ فوڈ، پیزا، اور ریسٹورنٹس کی بہترین ڈیلز۔
+              <span class="lang-en">Ready-Made Food, Fast Food, Pizza & the best Deals from Restaurants</span>
+              <span class="lang-ur">تیار کھانا، فاسٹ فوڈ، پیزا، اور ریسٹورنٹس کی بہترین ڈیلز۔</span>
             </p>
             <a href="pages/food.html"
               class="text-xs font-semibold text-yellow-300 hover:text-yellow-200 flex items-center gap-1"
               style="width: fit-content;">
-              Explore Deals / آفرز دیکھیں <span>→</span>
+              <span class="lang-en">Explore Deals</span><span class="lang-ur">آفرز دیکھیں</span> <span>→</span>
             </a>
           </article>
 
@@ -440,12 +502,15 @@
             <div class="flex items-center justify-between mb-2">
               <div class="w-10 h-10 rounded-2xl bg-rose-500/10 flex items-center justify-center text-xl">🚗</div>
             </div>
-            <h3 class="font-semibold mb-1 text-slate-50">Vehicles / گاڑیاں</h3>
+            <h3 class="font-semibold mb-1 text-slate-50">
+              <span class="lang-en">Vehicles</span><span class="lang-ur">گاڑیاں</span>
+            </h3>
             <p class="text-xs text-slate-400 mb-3">
-              نئی اور پرانی گاڑیاں، موٹر سائیکل، اور آٹو پارٹس کی قیمتیں۔
+              <span class="lang-en">Prices of new and used cars, motorcycles, and auto parts.</span>
+              <span class="lang-ur">نئی اور پرانی گاڑیاں، موٹر سائیکل، اور آٹو پارٹس کی قیمتیں۔</span>
             </p>
             <button class="text-xs font-semibold text-rose-300 hover:text-rose-200 flex items-center gap-1">
-              Check Prices / قیمتیں جانیں <span>→</span>
+              <span class="lang-en">Check Prices</span><span class="lang-ur">قیمتیں جانیں</span> <span>→</span>
             </button>
           </article>
 
@@ -455,15 +520,18 @@
               <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-xl">🛒</div>
               <span
                 class="text-[0.7rem] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-400/40">
-                Popular / مشہور
+                <span class="lang-en">Popular</span><span class="lang-ur">مشہور</span>
               </span>
             </div>
-            <h3 class="font-semibold mb-1 text-slate-50">Grocery / گروسری</h3>
+            <h3 class="font-semibold mb-1 text-slate-50">
+              <span class="lang-en">Grocery</span><span class="lang-ur">گروسری</span>
+            </h3>
             <p class="text-xs text-slate-400 mb-3">
-              ماہانہ راشن، چینی، آٹا، گھی، دالیں، چاول — سب کا ایک ساتھ موازنہ۔
+              <span class="lang-en">Compare monthly Groceries, Sugar, Flour, Ghee, Pulses, Rice, all in one place.</span>
+              <span class="lang-ur">ماہانہ راشن، چینی، آٹا، گھی، دالیں، چاول — سب کا ایک ساتھ موازنہ۔</span>
             </p>
             <button class="text-xs font-semibold text-emerald-300 hover:text-emerald-200 flex items-center gap-1">
-              View Prices / قیمتیں دیکھیں <span>→</span>
+              <span class="lang-en">View Prices</span><span class="lang-ur">قیمتیں دیکھیں</span> <span>→</span>
             </button>
           </article>
 
@@ -472,12 +540,15 @@
             <div class="flex items-center justify-between mb-2">
               <div class="w-10 h-10 rounded-2xl bg-orange-500/10 flex items-center justify-center text-xl">🥦</div>
             </div>
-            <h3 class="font-semibold mb-1 text-slate-50">Vegetables &amp; Fruits / سبزیاں، پھل</h3>
+            <h3 class="font-semibold mb-1 text-slate-50">
+              <span class="lang-en">Vegetables &amp; Fruits</span><span class="lang-ur">سبزیاں، پھل</span>
+            </h3>
             <p class="text-xs text-slate-400 mb-3">
-              سبزی منڈی اور قریبی سبزی والوں کی روزانہ کی اپڈیٹڈ قیمتیں۔
+              <span class="lang-en">Daily updated prices from Wholesale Markets (Sabzi Mandi) & nearby Vegetable Vendors.</span>
+              <span class="lang-ur">سبزی منڈی اور قریبی سبزی والوں کی روزانہ کی اپڈیٹڈ قیمتیں۔</span>
             </p>
             <button class="text-xs font-semibold text-orange-300 hover:text-orange-200 flex items-center gap-1">
-              Today Rates / آج کے ریٹ <span>→</span>
+              <span class="lang-en">Today Rates</span><span class="lang-ur">آج کے ریٹ</span> <span>→</span>
             </button>
           </article>
 
@@ -486,12 +557,15 @@
             <div class="flex items-center justify-between mb-2">
               <div class="w-10 h-10 rounded-2xl bg-sky-500/10 flex items-center justify-center text-xl">📱</div>
             </div>
-            <h3 class="font-semibold mb-1 text-slate-50">Mobiles &amp; Gadgets / موبائلز</h3>
+            <h3 class="font-semibold mb-1 text-slate-50">
+              <span class="lang-en">Mobiles &amp; Gadgets</span><span class="lang-ur">موبائلز</span>
+            </h3>
             <p class="text-xs text-slate-400 mb-3">
-              برانڈڈ فونز، اسمارت واچ، ایئربڈز — آن لائن اور لوکل مارکیٹ ریٹس۔
+              <span class="lang-en">Branded Phones, Smartwatches & Earbuds, online & local market prices.</span>
+              <span class="lang-ur">برانڈڈ فونز، اسمارٹ واچ، ایئربڈز — آن لائن اور لوکل مارکیٹ ریٹس۔</span>
             </p>
             <button class="text-xs font-semibold text-sky-300 hover:text-sky-200 flex items-center gap-1">
-              Compare Now / موازنہ کریں <span>→</span>
+              <span class="lang-en">Compare Now</span><span class="lang-ur">موازنہ کریں</span> <span>→</span>
             </button>
           </article>
 
@@ -500,12 +574,15 @@
             <div class="flex items-center justify-between mb-2">
               <div class="w-10 h-10 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-xl">🏠</div>
             </div>
-            <h3 class="font-semibold mb-1 text-slate-50">Property / پراپرٹی</h3>
+            <h3 class="font-semibold mb-1 text-slate-50">
+              <span class="lang-en">Property</span><span class="lang-ur">پراپرٹی</span>
+            </h3>
             <p class="text-xs text-slate-400 mb-3">
-              گھر، پلاٹ، اور کمرشل پراپرٹی کی موجودہ مارکیٹ ویلیو۔
+              <span class="lang-en">Current market value of Houses, Plots & Commercial Properties.</span>
+              <span class="lang-ur">گھر، پلاٹ، اور کمرشل پراپرٹی کی موجودہ مارکیٹ ویلیو۔</span>
             </p>
             <button class="text-xs font-semibold text-indigo-300 hover:text-indigo-200 flex items-center gap-1">
-              View Market / مارکیٹ دیکھیں <span>→</span>
+              <span class="lang-en">View Market</span><span class="lang-ur">مارکیٹ دیکھیں</span> <span>→</span>
             </button>
           </article>
 
@@ -514,12 +591,15 @@
             <div class="flex items-center justify-between mb-2">
               <div class="w-10 h-10 rounded-2xl bg-fuchsia-500/10 flex items-center justify-center text-xl">🧴</div>
             </div>
-            <h3 class="font-semibold mb-1 text-slate-50">Personal Care / ذاتی نگہداشت</h3>
+            <h3 class="font-semibold mb-1 text-slate-50">
+              <span class="lang-en">Personal Care</span><span class="lang-ur">ذاتی نگہداشت</span>
+            </h3>
             <p class="text-xs text-slate-400 mb-3">
-              شیمپو، صابن، کریمیں، بچوں کی پراڈکٹس — ڈسکاونٹس اور بنڈل آفرز۔
+              <span class="lang-en">Shampoos, Soaps, Creams & Baby Products, discounts and bundle offers.</span>
+              <span class="lang-ur">شیمپو، صابن، کریمیں، بچوں کی پراڈکٹس — ڈسکاؤنٹس اور بنڈل آفرز۔</span>
             </p>
             <button class="text-xs font-semibold text-fuchsia-300 hover:text-fuchsia-200 flex items-center gap-1">
-              Discover Deals / آفرز دیکھیں <span>→</span>
+              <span class="lang-en">Discover Deals</span><span class="lang-ur">آفرز دیکھیں</span> <span>→</span>
             </button>
           </article>
 
@@ -528,12 +608,15 @@
             <div class="flex items-center justify-between mb-2">
               <div class="w-10 h-10 rounded-2xl bg-teal-500/10 flex items-center justify-center text-xl">🧸</div>
             </div>
-            <h3 class="font-semibold mb-1 text-slate-50">Kids / بچوں کا سامان</h3>
+            <h3 class="font-semibold mb-1 text-slate-50">
+              <span class="lang-en">Kids</span><span class="lang-ur">بچوں کا سامان</span>
+            </h3>
             <p class="text-xs text-slate-400 mb-3">
-              بچوں کے کپڑے، کھلونے، اور روزمرہ کا سامان بہترین قیمت پر۔
+              <span class="lang-en">Kids’ Clothing, Toys & everyday essentials at the best prices.</span>
+              <span class="lang-ur">بچوں کے کپڑے، کھلونے، اور روزمرہ کا سامان بہترین قیمت پر۔</span>
             </p>
             <button class="text-xs font-semibold text-teal-300 hover:text-teal-200 flex items-center gap-1">
-              Shop Now / خریداری کریں <span>→</span>
+              <span class="lang-en">Shop Now</span><span class="lang-ur">خریداری کریں</span> <span>→</span>
             </button>
           </article>
         </div>
@@ -549,8 +632,11 @@
               <span class="lang-en">Today’s Smart Picks</span><span class="lang-ur">آج کی بہترین قیمتیں</span>
             </h2>
             <p class="text-slate-400 text-sm mt-1 max-w-2xl">
-              <span class="lang-en">Smart recommendations based on user preferences, discounts, and nearby markets. This is just a demo— in the actual product, you’ll be able to filter according to your preferences (halal meat, brand, weight).</span>
-              <span class="lang-ur">صارفین کی پسند، ڈسکاونٹس اور قریبی مارکیٹس کی بنیاد پر سمجھدار تجاویز۔ یہ صرف ڈیمو ہے، اصل پروڈکٹ میں آپ اپنی پسند (حلال گوشت، برانڈ، وزن) کے مطابق فلٹر کر سکیں گے۔</span>
+              <span class="lang-en">Smart recommendations based on user preferences, discounts, and nearby markets. This
+                is just a demo— in the actual product, you’ll be able to filter according to your preferences (halal
+                meat, brand, weight).</span>
+              <span class="lang-ur">صارفین کی پسند، ڈسکاونٹس اور قریبی مارکیٹس کی بنیاد پر سمجھدار تجاویز۔ یہ صرف ڈیمو
+                ہے، اصل پروڈکٹ میں آپ اپنی پسند (حلال گوشت، برانڈ، وزن) کے مطابق فلٹر کر سکیں گے۔</span>
             </p>
           </div>
         </div>
@@ -600,15 +686,19 @@
                   خاص</span>
               </h3>
               <ul class="text-[0.7rem] text-slate-400 space-y-1.5">
-                <li><span class="lang-en">• Easy to use in both Urdu &amp; English</span><span class="lang-ur">• اردو اور انگلش دونوں میں آسان استعمال</span></li>
-                <li><span class="lang-en">• Filter by City, Area &amp; Market</span><span class="lang-ur">• شہر، علاقہ، مارکیٹ کے مطابق فلٹر</span></li>
-                <li><span class="lang-en">• Compare branded &amp; loose (open) items</span><span class="lang-ur">• برانڈ / کھلا (open) اشیاء دونوں کا موازنہ</span></li>
-                <li><span class="lang-en">• Inflation Trend Graphs</span><span class="lang-ur">• مہنگائی کے رجحان (Inflation Trend) کے گراف</span></li>
+                <li><span class="lang-en">• Easy to use in both Urdu &amp; English</span><span class="lang-ur">• اردو
+                    اور انگلش دونوں میں آسان استعمال</span></li>
+                <li><span class="lang-en">• Filter by City, Area &amp; Market</span><span class="lang-ur">• شہر، علاقہ،
+                    مارکیٹ کے مطابق فلٹر</span></li>
+                <li><span class="lang-en">• Compare branded &amp; loose (open) items</span><span class="lang-ur">• برانڈ
+                    / کھلا (open) اشیاء دونوں کا موازنہ</span></li>
+                <li><span class="lang-en">• Inflation Trend Graphs</span><span class="lang-ur">• مہنگائی کے رجحان
+                    (Inflation Trend) کے گراف</span></li>
               </ul>
             </div>
             <button
               class="mt-3 px-3 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-sky-500 text-xs font-semibold text-slate-950 hover:from-emerald-400 hover:to-sky-400">
-              Join Early Access List / ابتدائی رسائی کے لیے رجسٹر کریں
+              <span class="lang-en">Join Early Access List</span><span class="lang-ur">ابتدائی رسائی کے لیے رجسٹر کریں</span>
             </button>
           </div>
         </div>
@@ -624,7 +714,9 @@
               <span class="lang-en">Smart Buyer Blog</span><span class="lang-ur">سمجھدار خریدار بلاگ</span>
             </h2>
             <p class="text-slate-400 text-sm mt-1 max-w-2xl">
-              <span class="lang-en">Blogs based on saving tips, market research, and important news—practical guidance for your family budget.</span><span class="lang-ur">بچت کے ٹپس، مارکیٹ ریسرچ اور اہم خبروں پر مبنی بلاگز۔ آپ کے فیملی بجٹ کے لیے پریکٹیکل گائیڈ۔</span>
+              <span class="lang-en">Blogs based on saving tips, market research, and important news—practical guidance
+                for your family budget.</span><span class="lang-ur">بچت کے ٹپس، مارکیٹ ریسرچ اور اہم خبروں پر مبنی
+                بلاگز۔ آپ کے فیملی بجٹ کے لیے پریکٹیکل گائیڈ۔</span>
             </p>
           </div>
           <button
@@ -633,45 +725,8 @@
           </button>
         </div>
 
-        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <article class="glass-card p-4 hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-900/80 transition">
-            <p class="text-[0.65rem] text-sky-300 mb-1">Inflation Insight / مہنگائی کا رجحان</p>
-            <h3 class="font-semibold text-sm text-slate-50 mb-1">
-              پاکستان میں ماہانہ گروسری بجٹ کیسے پلان کریں؟
-            </h3>
-            <p class="text-[0.7rem] text-slate-400 mb-2">
-              ٹوٹل بجٹ کے بجائے per kg اور per litre لاگت دیکھیں، خود کو over-buying سے بچائیں۔
-            </p>
-            <button class="text-[0.7rem] text-sky-300 hover:text-sky-200">
-              Read More / مزید پڑھیں →
-            </button>
-          </article>
-
-          <article class="glass-card p-4 hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-900/80 transition">
-            <p class="text-[0.65rem] text-emerald-300 mb-1">Savings / بچت</p>
-            <h3 class="font-semibold text-sm text-slate-50 mb-1">
-              ہول سیل بمقابلہ ریٹیل: کون سا سستا پڑتا ہے؟
-            </h3>
-            <p class="text-[0.7rem] text-slate-400 mb-2">
-              کئی چیزوں میں wholesale سستا نہیں پڑتا، خاص طور پر خراب ہونے والی اشیاء میں۔
-            </p>
-            <button class="text-[0.7rem] text-emerald-300 hover:text-emerald-200">
-              Read More / مزید پڑھیں →
-            </button>
-          </article>
-
-          <article class="glass-card p-4 hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-900/80 transition">
-            <p class="text-[0.65rem] text-orange-300 mb-1">Awareness / آگاہی</p>
-            <h3 class="font-semibold text-sm text-slate-50 mb-1">
-              پیکیجنگ پر لکھی قیمت اور اصل قیمت میں فرق کیوں؟
-            </h3>
-            <p class="text-[0.7rem] text-slate-400 mb-2">
-              MRP، ڈسکاونٹ، پروموشنل پیک اور لوکل ٹیکسز کا فرق سمجھیں۔
-            </p>
-            <button class="text-[0.7rem] text-orange-300 hover:text-orange-200">
-              Read More / مزید پڑھیں →
-            </button>
-          </article>
+        <div id="dynamicBlogGrid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <!-- Blogs injected dynamically via JS -->
         </div>
       </div>
     </section>
@@ -684,17 +739,57 @@
           <h2 class="section-title gradient-text mb-2">
             <span class="lang-en">About StopBuy</span><span class="lang-ur">ہمارے بارے میں</span>
           </h2>
-          <p class="text-sm text-slate-300 mb-3">
-            StopBuy کا مقصد ایک عام پاکستانی صارف کو اصل مارکیٹ انفارمیشن دینا ہے تاکہ
-            خریداری جذبات سے نہیں، ڈیٹا سے ہو۔ ہم قیمتیں مختلف سورسز سے لے کر، صاف
-            (clean) اور ترتیب وار شکل میں آپ کے موبائل تک پہنچاتے ہیں۔
-          </p>
-          <ul class="text-[0.75rem] text-slate-400 space-y-1.5 mb-4">
-            <li>• لوکل مارکیٹس، سپر اسٹورز، اور آن لائن پلیٹ فارمز سے aggregated data</li>
-            <li>• شہر، علاقہ، اور distance کے حساب سے “Nearby First” الگورتھم</li>
-            <li>• قیمت کم سے زیادہ (Low to High) sorting بطور default</li>
-            <li>• آنے والے فیچرز: Price History، Alerts، Community Reviews، Halal Filters</li>
-          </ul>
+          <div class="lang-en text-sm text-slate-300 mb-4 space-y-3">
+            <p>StopBuy is built to empower everyday Pakistani consumers with real market information, so purchasing
+              decisions are based on data, not emotions.</p>
+            <p>We collect prices from multiple sources &amp; present them in a clean, structured &amp;
+              easy-to-understand format, directly on your device.</p>
+
+            <h3 class="font-bold text-slate-100 mt-4 mb-2">🔍 What We Offer</h3>
+            <ul class="list-none space-y-1">
+              <li>• Aggregated data from local markets, supermarkets &amp; online platforms.</li>
+              <li>• “Nearby First” algorithm based on city, area &amp; distance.</li>
+              <li>• Default sorting from lowest to highest price for smarter comparison.</li>
+              <li>• Simple and fast interface designed for everyday use.</li>
+            </ul>
+
+            <h3 class="font-bold text-slate-100 mt-4 mb-2">🚀 Coming Soon</h3>
+            <ul class="list-none space-y-1">
+              <li>• Price history &amp; trends 📊</li>
+              <li>• Smart price alerts 🔔</li>
+              <li>• Community reviews &amp; user-submitted prices 👥</li>
+              <li>• Halal &amp; quality-based filters 🕌</li>
+              <li>• Personalized recommendations based on your preferences</li>
+            </ul>
+
+            <h3 class="font-bold text-slate-100 mt-4 mb-2">👉 Our mission is simple:</h3>
+            <p>Help you buy smarter, save more &amp; stay informed.</p>
+          </div>
+          <div class="lang-ur text-sm text-slate-300 mb-4 space-y-3">
+            <p>اسٹاپ بائے کا مقصد ایک عام پاکستانی صارف کو اصل مارکیٹ کی درست معلومات فراہم کرنا ہے تاکہ خریداری جذبات
+              کے بجائے ڈیٹا کی بنیاد پر کی جا سکے۔</p>
+            <p>ہم مختلف ذرائع سے قیمتیں جمع کر کے انہیں ایک صاف، منظم اور آسان انداز میں آپ تک پہنچاتے ہیں۔</p>
+
+            <h3 class="font-bold text-slate-100 mt-4 mb-2">🔍 ہماری خصوصیات</h3>
+            <ul class="list-none space-y-1">
+              <li>• لوکل مارکیٹس، سپر اسٹورز اور آن لائن پلیٹ فارمز سے حاصل کردہ معلومات</li>
+              <li>• شہر، علاقے اور فاصلے کے مطابق “قریب ترین پہلے” الگورتھم</li>
+              <li>• قیمت کم سے زیادہ (Low to High) کے مطابق ڈیفالٹ ترتیب</li>
+              <li>• آسان اور تیز رفتار استعمال کے لیے سادہ ڈیزائن</li>
+            </ul>
+
+            <h3 class="font-bold text-slate-100 mt-4 mb-2">🚀 آنے والے فیچرز</h3>
+            <ul class="list-none space-y-1">
+              <li>• قیمتوں کی ہسٹری اور ٹرینڈز 📊</li>
+              <li>• اسمارٹ پرائس الرٹس 🔔</li>
+              <li>• صارفین کے ریویوز اور شیئر کی گئی قیمتیں 👥</li>
+              <li>• حلال اور معیار کے مطابق فلٹرز 🕌</li>
+              <li>• آپ کی دلچسپی کے مطابق ذاتی نوعیت کی تجاویز</li>
+            </ul>
+
+            <h3 class="font-bold text-slate-100 mt-4 mb-2">👉 ہمارا مقصد:</h3>
+            <p>آپ کو بہتر فیصلے کرنے، پیسے بچانے اور باخبر رہنے میں مدد دینا ہے۔</p>
+          </div>
           <div class="flex flex-wrap gap-2 text-[0.7rem]">
             <span class="px-2 py-1 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-400/40">
               Made in Pakistan 🇵🇰
@@ -710,31 +805,39 @@
           <h2 class="section-title gradient-text mb-2">
             <span class="lang-en">Contact Us</span><span class="lang-ur">رابطہ</span>
           </h2>
-          <p class="text-sm text-slate-300 mb-4">
-            اگر آپ دکاندار، سپر اسٹور، یا برانڈ ہیں اور اپنی قیمتیں / آفرز دکھانا چاہتے ہیں
-            تو نیچے فارم فل کریں۔ ہم آپ سے جلد رابطہ کریں گے۔
+          <p class="lang-en text-sm text-slate-300 mb-4">
+            👉 If you are a retailer, supermarket, or brand looking to showcase your prices or offers, please complete
+            the form below. Our team will get in touch with you soon.
+          </p>
+          <p class="lang-ur text-sm text-slate-300 mb-4">
+            اگر آپ دکاندار، سپر اسٹور، یا برانڈ ہیں اور اپنی قیمتیں / آفرز دکھانا چاہتے ہیں تو نیچے فارم فل کریں۔ ہم آپ
+            سے جلد رابطہ کریں گے۔
           </p>
           <form class="space-y-3 text-[0.8rem]">
             <div class="grid sm:grid-cols-2 gap-3">
               <div>
-                <label class="block mb-1 text-slate-300">نام / Name</label>
+                <label class="block mb-1 text-slate-300"><span class="lang-en">Name</span><span
+                    class="lang-ur">نام</span></label>
                 <input type="text"
                   class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-slate-100 outline-none focus:ring-2 focus:ring-emerald-500/80 focus:border-emerald-400" />
               </div>
               <div>
-                <label class="block mb-1 text-slate-300">ای میل / Email</label>
+                <label class="block mb-1 text-slate-300"><span class="lang-en">Email</span><span class="lang-ur">ای
+                    میل</span></label>
                 <input type="email"
                   class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-slate-100 outline-none focus:ring-2 focus:ring-emerald-500/80 focus:border-emerald-400" />
               </div>
             </div>
             <div class="grid sm:grid-cols-2 gap-3">
               <div>
-                <label class="block mb-1 text-slate-300">شہر / City</label>
+                <label class="block mb-1 text-slate-300"><span class="lang-en">City</span><span
+                    class="lang-ur">شہر</span></label>
                 <input type="text" placeholder="Karachi, Lahore, Islamabad..."
                   class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-slate-100 outline-none focus:ring-2 focus:ring-emerald-500/80 focus:border-emerald-400" />
               </div>
               <div>
-                <label class="block mb-1 text-slate-300">آپ کون ہیں؟ / You are</label>
+                <label class="block mb-1 text-slate-300"><span class="lang-en">You are</span><span class="lang-ur">آپ
+                    کون ہیں؟</span></label>
                 <select
                   class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-slate-100 outline-none focus:ring-2 focus:ring-emerald-500/80 focus:border-emerald-400">
                   <option>Retail Shop / جنرل اسٹور</option>
@@ -746,13 +849,14 @@
               </div>
             </div>
             <div>
-              <label class="block mb-1 text-slate-300">پیغام / Message</label>
+              <label class="block mb-1 text-slate-300"><span class="lang-en">Message</span><span
+                  class="lang-ur">پیغام</span></label>
               <textarea rows="3"
                 class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-slate-100 outline-none focus:ring-2 focus:ring-emerald-500/80 focus:border-emerald-400"></textarea>
             </div>
             <button type="button"
               class="mt-1 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-sky-500 text-slate-950 text-xs font-semibold hover:from-emerald-400 hover:to-sky-400">
-              Send Message / پیغام بھیجیں
+              <span class="lang-en">Send Message</span><span class="lang-ur">پیغام بھیجیں</span>
             </button>
           </form>
         </div>
@@ -781,8 +885,131 @@
     </div>
   </footer>
 
-  <script src="js/data-service.js"></script>
-  <script src="js/script.js"></script>
+  <!-- Blog Modal -->
+  <div id="blogModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
+    <div class="bg-slate-900 border border-slate-700 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl flex flex-col relative">
+      <button onclick="closeBlogModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800 rounded-full w-8 h-8 flex items-center justify-center transition z-10">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <img id="modalBlogImage" src="" alt="Blog Image" class="w-full aspect-video object-cover rounded-t-xl">
+      <div class="p-6">
+        <h2 id="modalBlogTitle" class="text-xl font-bold text-slate-50 mb-4 pb-4 border-b border-slate-700/50"></h2>
+        <div id="modalBlogContent" class="text-slate-300 text-sm leading-relaxed mb-6 whitespace-pre-line"></div>
+        <div class="mt-auto pt-4 border-t border-slate-700/50 flex justify-end">
+          <span class="text-xs text-slate-400 bg-slate-800 px-3 py-1.5 rounded-full">
+            <i class="fa-solid fa-pen-nib mr-1"></i> <span id="modalBlogAuthor"></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div id="productRows"></div>
+
+<script src="js/data-service.js"></script>
+<script src="js/script.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<script>
+const client = supabase.createClient(
+  "https://mhtfjfvcrwfuucukorvb.supabase.co",
+  "sb_publishable_WWXOAe74U8dIARMFu7Si-A_EjoLUtjz"
+);
+
+async function loadPrices() {
+  try {
+    const { data, error } = await supabase
+      .from('prices')
+      .select('item_name, category, price, unit, previous_price, updated_at')
+      .order('updated_at', { ascending: false });
+
+    if (error) {
+      console.error("Supabase Error:", error);
+      return;
+    }
+
+    console.log("Prices Data:", data);
+
+    document.getElementById("priceTable").innerHTML = data.map(item => `
+      <tr>
+        <td>${item.item_name}</td>
+        <td>${item.category}</td>
+        <td>${item.price}</td>
+        <td>${item.unit || '-'}</td>
+        <td>${item.previous_price ?? '-'}</td>
+        <td>${item.updated_at ? new Date(item.updated_at).toLocaleString() : '-'}</td>
+      </tr>
+    `).join('');
+
+  } catch (err) {
+    console.error("Unexpected Error:", err);
+  }
+}
+
+// Run on page load
+loadPrices();
+
+const sound = document.getElementById("clickSound");
+
+document.querySelectorAll(".sidebar ul li").forEach(item => {
+  item.addEventListener("click", () => {
+    sound.currentTime = 0;
+    sound.play();
+  });
+});
+</script>
+<div class="grid grid-cols-12 px-2 sm:px-3 py-2 text-slate-200 hover:bg-slate-900/40 transition ${item.previous_price !== item.price ? "bg-slate-900/30" : ""}">
+
+document.getElementById("productRows").innerHTML =
+  data
+    .sort((a, b) => a.price - b.price) // cheapest first
+    .map(item => {
+
+      const prev = item.previous_price;
+
+      let priceColor = "text-slate-200";
+      let changeText = "";
+
+      // price change logic
+      if (prev !== null && prev !== undefined) {
+        if (item.price > prev) {
+          priceColor = "text-red-400";
+          changeText = `🔴 +${(item.price - prev).toFixed(0)}`;
+        } else if (item.price < prev) {
+          priceColor = "text-green-400";
+          changeText = `🟢 -${(prev - item.price).toFixed(0)}`;
+        }
+      }
+
+      // highlight changed row
+      const rowBg = (prev !== null && prev !== item.price)
+        ? "bg-slate-900/30"
+        : "";
+
+      return `
+        <div class="grid grid-cols-12 px-2 sm:px-3 py-2 text-slate-200 hover:bg-slate-900/40 transition ${rowBg}">
+
+          <div class="col-span-4">${item.item_name}</div>
+
+          <div class="col-span-2 text-center">${item.city || 'Karachi'}</div>
+
+          <div class="col-span-2 text-center">${item.unit || '-'}</div>
+
+          <div class="col-span-2 text-center ${priceColor}">
+            ${item.price}
+            <div class="text-[10px]">${changeText}</div>
+          </div>
+
+          <div class="col-span-2 text-right">
+            ${item.previous_price ?? '-'}
+          </div>
+
+        </div>
+      `;
+    })
+    .join('');
+  
 </body>
 
 </html>

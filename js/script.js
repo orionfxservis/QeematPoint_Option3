@@ -128,74 +128,75 @@
       });
     }
 
-    // Demo products data
-    const products = [
-      { name: 'Sugar 1kg / چینی 1 کلو', category: 'grocery', city: 'Karachi', area: 'Gulshan-e-Iqbal', distanceKm: 1.2, price: 155 },
-      { name: 'Sugar 1kg / چینی 1 کلو', category: 'grocery', city: 'Karachi', area: 'Bahadurabad', distanceKm: 3.1, price: 150 },
-      { name: 'Sugar 1kg / چینی 1 کلو', category: 'grocery', city: 'Karachi', area: 'Nazimabad', distanceKm: 4.2, price: 148 },
-      { name: 'Milk 1L Pack / دودھ 1 لیٹر', category: 'grocery', city: 'Lahore', area: 'Model Town', distanceKm: 0.8, price: 235 },
-      { name: 'Milk 1L Pack / دودھ 1 لیٹر', category: 'grocery', city: 'Lahore', area: 'Johar Town', distanceKm: 2.4, price: 230 },
-      { name: 'Tomato 1kg / ٹماٹر 1 کلو', category: 'vegetables', city: 'Karachi', area: 'Saddar', distanceKm: 2.0, price: 95 },
-      { name: 'Potato 1kg / آلو 1 کلو', category: 'vegetables', city: 'Karachi', area: 'Gulshan-e-Iqbal', distanceKm: 1.2, price: 75 },
-      { name: 'Chicken 1kg / چکن 1 کلو', category: 'meat', city: 'Lahore', area: 'Township', distanceKm: 1.5, price: 495 },
-      { name: 'Beef 1kg / بیف 1 کلو', category: 'meat', city: 'Karachi', area: 'Liaquatabad', distanceKm: 3.7, price: 780 },
-      { name: 'Cooking Oil 1L / کوکنگ آئل 1 لیٹر', category: 'grocery', city: 'Karachi', area: 'Defence', distanceKm: 5.2, price: 540 },
-      { name: 'Smartphone 6.5" 128GB / سمارٹ فون', category: 'electronics', city: 'Karachi', area: 'Saddar Mobile Market', distanceKm: 6.0, price: 46500 },
-      { name: 'Smartphone 6.5" 128GB / سمارٹ فون', category: 'electronics', city: 'Lahore', area: 'Hall Road', distanceKm: 4.5, price: 45990 },
-      { name: 'Shampoo 340ml / شیمپو 340ml', category: 'personal', city: 'Karachi', area: 'Gulistan-e-Johar', distanceKm: 2.8, price: 430 },
-      { name: 'Washing Powder 2kg / واشنگ پاؤڈر 2 کلو', category: 'grocery', city: 'Lahore', area: 'DHA', distanceKm: 5.0, price: 880 }
-    ];
+    let allProducts = [];
 
     const productRowsEl = document.getElementById('productRows');
     const searchInput = document.getElementById('searchInput');
     const searchBtn = document.getElementById('searchBtn');
 
-    function distanceBadge(km) {
-      if (km <= 1.5) return '<span class="px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 text-[0.6rem]">Near</span>';
-      if (km <= 3.5) return '<span class="px-1.5 py-0.5 rounded-full bg-sky-500/10 text-sky-300 text-[0.6rem]">Medium</span>';
-      return '<span class="px-1.5 py-0.5 rounded-full bg-slate-700/70 text-slate-200 text-[0.6rem]">Far</span>';
-    }
-
     function renderProducts() {
       if (!productRowsEl) return;
       const q = searchInput.value.trim().toLowerCase();
-      let filtered = products.slice();
+      let filtered = allProducts.slice();
 
       if (currentCategory !== 'all') {
         filtered = filtered.filter(p => p.category === currentCategory);
       }
       if (q) {
-        filtered = filtered.filter(p => p.name.toLowerCase().includes(q));
+        filtered = filtered.filter(p => (p.name || '').toLowerCase().includes(q));
       }
 
       // sort by distance first, then price
       filtered.sort((a, b) => {
-        if (a.distanceKm === b.distanceKm) return a.price - b.price;
-        return a.distanceKm - b.distanceKm;
+        const distA = a.distanceKm || 0;
+        const distB = b.distanceKm || 0;
+        if (distA === distB) return (a.price || 0) - (b.price || 0);
+        return distA - distB;
       });
 
-      productRowsEl.innerHTML = filtered.map(p => `
-        <div class="product-row grid grid-cols-12 px-2 sm:px-3 py-2 text-[0.7rem] sm:text-xs">
-          <div class="col-span-5 flex flex-col">
-            <span class="text-slate-100"><span class="lang-en">${p.name.split(' / ')[0]}</span><span class="lang-ur">${p.name.split(' / ')[1] || p.name}</span></span>
-            <span class="text-slate-500">${p.city}</span>
+      productRowsEl.innerHTML = filtered.map(item => `
+        <div class="grid grid-cols-12 px-2 sm:px-3 py-2 text-slate-200 hover:bg-slate-900/40 transition ${item.previous_price && item.previous_price !== item.price ? "bg-slate-900/30" : ""}">
+          <div class="col-span-4 flex flex-col justify-center">
+            <span class="text-slate-100 font-medium leading-tight truncate" title="${item.name || ''}"><span class="lang-en">${(item.name || '').split(' / ')[0] || item.name}</span><span class="lang-ur">${(item.name || '').split(' / ')[1] || (item.name || '')}</span></span>
+            <span class="text-slate-500 text-[0.65rem]">${item.city || ''}</span>
           </div>
-          <div class="col-span-3 flex flex-col text-center">
-            <span class="text-slate-200">${p.area}</span>
+          <div class="col-span-2 flex items-center justify-center text-center">
+            <span class="text-slate-300 text-[0.7rem] sm:text-xs truncate" title="${item.area || ''}">${item.area || '-'}</span>
           </div>
-          <div class="col-span-2 flex flex-col items-center">
-            <span class="text-slate-200">${p.distanceKm.toFixed(1)} km</span>
-            ${distanceBadge(p.distanceKm)}
+          <div class="col-span-2 flex items-center justify-center text-center">
+            <span class="text-slate-400 text-[0.7rem] sm:text-xs">${item.unit || '-'}</span>
           </div>
-          <div class="col-span-2 flex flex-col text-right">
-            <span class="text-emerald-400 font-semibold">Rs ${p.price.toLocaleString()}</span>
+          <div class="col-span-2 flex items-center justify-center text-center">
+            <span class="text-emerald-400 font-bold text-[0.75rem] sm:text-sm">Rs ${item.price ? Number(item.price).toLocaleString() : '0'}</span>
+          </div>
+          <div class="col-span-2 flex items-center justify-end text-right">
+            ${item.previous_price && Number(item.previous_price) > 0 ? `<span class="text-slate-500 line-through text-[0.7rem] sm:text-xs">Rs ${Number(item.previous_price).toLocaleString()}</span>` : '<span class="text-slate-600">-</span>'}
           </div>
         </div>
       `).join('') || `
         <div class="px-3 py-4 text-center text-[0.75rem] text-slate-500">
-          <span class="lang-en">No items found for your search</span><span class="lang-ur">Ø§Ø¨Ú¾ÛŒ Ø§Ø³ ØªÙ„Ø§Ø´ Ú©Û’ Ù„ÛŒÛ’ ÚˆÛŒÙ¹Ø§ Ù…ÙˆØ¬ÙˆØ¯ Ù†ÛÛŒÚº</span>
+          <span class="lang-en">No items found for your search</span><span class="lang-ur">ابھی اس تلاش کے لیے ڈیٹا موجود نہیں</span>
         </div>
       `;
+    }
+
+    if (typeof DataService !== 'undefined') {
+      DataService.getProducts().then(products => {
+        if (products && products.length > 0) {
+          allProducts = products;
+        } else {
+          // Fallback dummy products if fetch returns empty
+          allProducts = [
+            { name: 'Sugar 1kg / چینی 1 کلو', category: 'grocery', city: 'Karachi', area: 'Gulshan-e-Iqbal', unit: '1 kg', previous_price: 160, price: 155 },
+            { name: 'Milk 1L Pack / دودھ 1 لیٹر', category: 'grocery', city: 'Lahore', area: 'Model Town', unit: '1 Liter', previous_price: 235, price: 235 },
+            { name: 'Tomato 1kg / ٹماٹر 1 کلو', category: 'vegetables', city: 'Karachi', area: 'Saddar', unit: '1 kg', previous_price: 110, price: 95 },
+            { name: 'Chicken 1kg / چکن 1 کلو', category: 'meat', city: 'Lahore', area: 'Township', unit: '1 kg', previous_price: 520, price: 495 }
+          ];
+        }
+        renderProducts();
+      }).catch(e => {
+        console.error("Failed to fetch products", e);
+      });
     }
 
     if (searchBtn) {

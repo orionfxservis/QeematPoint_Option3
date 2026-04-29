@@ -120,6 +120,17 @@ const DataService = {
         return res.message;
     },
 
+    // --- Broadcasts ---
+
+    getBroadcasts: async () => {
+        return await DataService._fetchGET('getBroadcasts');
+    },
+
+    saveBroadcasts: async (broadcasts) => {
+        const res = await DataService._fetchPOST('saveBroadcasts', broadcasts);
+        return res.message;
+    },
+
     // --- Travel Packages ---
 
     getTravelPackages: async () => {

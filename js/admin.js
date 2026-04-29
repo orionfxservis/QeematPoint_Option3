@@ -11,6 +11,8 @@ let editIndex = -1; // State to track editing
 let userEditIndex = -1; // State to track user editing
 let dealEditIndex = -1; // State to track deal editing
 let blogEditIndex = -1; // State to track blog editing
+let broadcasts = [];
+let broadcastEditIndex = -1;
 
 // DOM Elements
 const categoryForm = document.getElementById('categoryForm');
@@ -32,14 +34,15 @@ const bannerPreview = document.getElementById('bannerPreview');
 
 async function initAdmin() {
     try {
-        const [categoriesRes, productsRes, bannersRes, dealsRes, usersRes, blogsRes, travelRes] = await Promise.all([
+        const [categoriesRes, productsRes, bannersRes, dealsRes, usersRes, blogsRes, travelRes, broadcastsRes] = await Promise.all([
             DataService.getCategories(),
             DataService.getProducts(),
             DataService.getBanners(),
             DataService.getDeals(),
             DataService.getUsers(),
             DataService.getBlogs(),
-            DataService.getTravelPackages()
+            DataService.getTravelPackages(),
+            DataService.getBroadcasts()
         ]);
 
         categories = categoriesRes || [];
@@ -49,6 +52,7 @@ async function initAdmin() {
         users = usersRes || [];
         blogs = blogsRes || [];
         travelPackages = travelRes || [];
+        broadcasts = broadcastsRes || [];
 
         updateUI();
         renderBanners();
@@ -56,6 +60,7 @@ async function initAdmin() {
         renderUsers();
         renderBlogs();
         renderTravelPackages(); // New function for travel
+        renderBroadcasts();
         renderAdminProducts(); // New function for products
         populateCategoryDropdown(); // New function for form
         
@@ -1572,5 +1577,263 @@ if (travelForm) {
         await saveTravelPackages();
         if (travelEditIndex === -1) travelForm.reset();
         alert('Travel package saved successfully!');
+    });
+}
+
+// --- Daily Price Table Logic ---
+async function loadDailyPrices() {
+  if (typeof supabase === 'undefined') {
+    console.warn("Supabase is not loaded yet.");
+    return;
+  }
+
+  const { data, error } = await supabase
+    .from('pdf_sources')
+    .select('*')
+    .order('uploaded_at', { ascending: false });
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  const tableBody = document.getElementById("dailyPriceTable");
+  if (!tableBody) return;
+
+  tableBody.innerHTML =
+    data.map(file => {
+
+      let statusColor = "text-yellow-400";
+      if (file.status === "processed") statusColor = "text-green-400";
+      if (file.status === "downloaded") statusColor = "text-blue-400";
+
+      let priceStatus = "⏳ Pending";
+      if (file.status === "processed") priceStatus = "✔ Processed";
+
+      return `
+        <tr class="border-b border-slate-800">
+          <td class="py-2">${new Date(file.uploaded_at).toLocaleDateString()}</td>
+          <td>${file.title || 'DC Price List'}</td>
+          <td class="${statusColor}">
+            ${file.status}
+          </td>
+          <td>
+            ${priceStatus}
+          </td>
+          <td class="text-right">
+            ${file.status !== "processed" ? `
+              <button onclick="processFile(${file.id})"
+                class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-xs">
+                Process
+              </button>
+            ` : `
+              <span class="text-slate-500 text-xs">Done</span>
+            `}
+          </td>
+        </tr>
+      `;
+    }).join('');
+}
+
+loadDailyPrices();
+
+window.processFile = async function(id) {
+  if (typeof supabase === 'undefined') return;
+
+  // 1. Get file info
+  const { data } = await supabase
+    .from('pdf_sources')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  // 2. SIMPLE LOGIC (for now manual comparison later)
+  console.log("Processing:", data);
+  // System will check: IF new_price == old_price -> show "Price Remains Same", ELSE -> update + log change
+
+  // 3. Mark as processed
+  await supabase
+    .from('pdf_sources')
+    .update({ status: 'processed' })
+    .eq('id', id);
+
+  // 4. Refresh table
+  loadDailyPrices();
+
+  alert("✔ DC Price List processed successfully");
+}
+
+// --- Click Sound Logic ---
+const sound = document.getElementById("clickSound");
+
+if (sound) {
+  document.querySelectorAll(".sidebar ul li").forEach(item => {
+    item.addEventListener("click", () => {
+      sound.currentTime = 0;
+      sound.play().catch(e => console.log("Audio play failed:", e));
+    });
+  });
+}
+
+// --- Broadcast Management ---
+
+const broadcastForm = document.getElementById('broadcastForm');
+const broadcastList = document.getElementById('broadcastList');
+const broadcastFormTitle = document.getElementById('broadcastFormTitle');
+const btnSaveBroadcast = document.getElementById('btnSaveBroadcast');
+const btnCancelBroadcast = document.getElementById('btnCancelBroadcast');
+
+async function saveBroadcasts() {
+    await DataService.saveBroadcasts(broadcasts);
+    renderBroadcasts();
+    updateGlobalTicker();
+}
+
+function renderBroadcasts() {
+    if (!broadcastList) return;
+    broadcastList.innerHTML = broadcasts.map((b, index) => {
+        const targetLabel = b.audience === 'all' ? 'All Users' : (b.specificUser || 'Specific User');
+        const statusColor = b.status === 'active' ? '#2ecc71' : '#f1c40f';
+        const shortMsg = b.message.length > 50 ? b.message.substring(0, 47) + '...' : b.message;
+        const dateStr = new Date(b.date || Date.now()).toLocaleDateString();
+
+        return `
+        <div class="product-row" style="grid-template-columns: 1fr 2fr 100px 100px 100px; font-size: 0.9rem; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+            <div><span class="badge" style="background:#3b82f6; color:white;">${targetLabel}</span></div>
+            <div style="color: #cbd5e1;" title="${b.message}">${shortMsg}</div>
+            <div style="color: #94a3b8;">${dateStr}</div>
+            <div><span class="badge" style="background:${statusColor}; color:white;">${b.status}</span></div>
+            <div>
+                <button class="edit-btn" onclick="editBroadcast(${index})"><i class="fa-solid fa-pen"></i></button>
+                <button class="delete-btn" onclick="deleteBroadcast(${index})"><i class="fa-solid fa-trash"></i></button>
+            </div>
+        </div>
+        `;
+    }).join('');
+}
+
+async function deleteBroadcast(index) {
+    if (confirm('Are you sure you want to delete this broadcast message?')) {
+        broadcasts.splice(index, 1);
+        await saveBroadcasts();
+    }
+}
+
+window.editBroadcast = (index) => {
+    broadcastEditIndex = index;
+    const b = broadcasts[index];
+
+    document.getElementById('broadcastAudience').value = b.audience || 'all';
+    document.getElementById('broadcastStatus').value = b.status || 'active';
+    document.getElementById('broadcastMessage').value = b.message || '';
+    
+    toggleSpecificUserField(); // update UI based on audience
+
+    if (b.audience === 'specific') {
+        document.getElementById('broadcastSpecificUser').value = b.specificUser || '';
+    }
+
+    if (broadcastFormTitle) broadcastFormTitle.textContent = "Edit Broadcast";
+    if (btnSaveBroadcast) btnSaveBroadcast.textContent = "Update Broadcast";
+    if (btnCancelBroadcast) btnCancelBroadcast.style.display = 'inline-block';
+
+    document.getElementById('broadcasts').querySelector('.form-container').scrollIntoView({ behavior: 'smooth' });
+};
+
+window.cancelBroadcastEdit = () => {
+    broadcastEditIndex = -1;
+    if (broadcastForm) broadcastForm.reset();
+    toggleSpecificUserField();
+    if (broadcastFormTitle) broadcastFormTitle.textContent = "Create New Broadcast";
+    if (btnSaveBroadcast) btnSaveBroadcast.textContent = "Save Broadcast";
+    if (btnCancelBroadcast) btnCancelBroadcast.style.display = 'none';
+};
+
+window.toggleSpecificUserField = () => {
+    const audience = document.getElementById('broadcastAudience').value;
+    const specificGroup = document.getElementById('specificUserGroup');
+    const specificSelect = document.getElementById('broadcastSpecificUser');
+    
+    if (audience === 'specific') {
+        specificGroup.style.display = 'block';
+        specificSelect.setAttribute('required', 'true');
+        // Populate specific users if not already done
+        if (specificSelect.options.length <= 1) {
+            populateUserDropdownForBroadcast();
+        }
+    } else {
+        specificGroup.style.display = 'none';
+        specificSelect.removeAttribute('required');
+    }
+};
+
+function populateUserDropdownForBroadcast() {
+    const specificSelect = document.getElementById('broadcastSpecificUser');
+    if (!specificSelect) return;
+    
+    // Clear existing except first
+    specificSelect.innerHTML = '<option value="">-- Choose User --</option>';
+    
+    // Add all registered users
+    users.forEach(u => {
+        const option = document.createElement('option');
+        option.value = u.username;
+        option.textContent = `${u.username} (${u.role})`;
+        specificSelect.appendChild(option);
+    });
+}
+
+function updateGlobalTicker() {
+    const ticker = document.getElementById('broadcastText');
+    if (!ticker) return;
+    
+    const activeGlobal = broadcasts.filter(b => b.audience === 'all' && b.status === 'active');
+    
+    if (activeGlobal.length > 0) {
+        ticker.innerHTML = activeGlobal.map(b => b.message).join(' &nbsp;|&nbsp; ');
+    } else {
+        ticker.innerHTML = 'Welcome to Qeemat Point Admin! &nbsp;|&nbsp; System Running Smoothly &nbsp;|&nbsp; New Products Registered!';
+    }
+}
+
+if (broadcastForm) {
+    broadcastForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const status = document.getElementById('broadcastStatus').value;
+
+        if (status === 'delete') {
+            if (broadcastEditIndex !== -1) {
+                broadcasts.splice(broadcastEditIndex, 1);
+            }
+            await saveBroadcasts();
+            broadcastForm.reset();
+            cancelBroadcastEdit();
+            toggleSpecificUserField(); // Reset UI
+            alert('Broadcast deleted successfully!');
+            return;
+        }
+
+        const audience = document.getElementById('broadcastAudience').value;
+        const newBroadcast = {
+            id: broadcastEditIndex === -1 ? Date.now() : broadcasts[broadcastEditIndex].id,
+            audience: audience,
+            specificUser: audience === 'specific' ? document.getElementById('broadcastSpecificUser').value : null,
+            status: status,
+            message: document.getElementById('broadcastMessage').value,
+            date: broadcastEditIndex === -1 ? Date.now() : broadcasts[broadcastEditIndex].date
+        };
+
+        if (broadcastEditIndex === -1) {
+            broadcasts.push(newBroadcast);
+        } else {
+            broadcasts[broadcastEditIndex] = newBroadcast;
+            cancelBroadcastEdit();
+        }
+
+        await saveBroadcasts();
+        if (broadcastEditIndex === -1) broadcastForm.reset();
+        toggleSpecificUserField(); // Reset UI
+        alert('Broadcast saved successfully!');
     });
 }

@@ -31,18 +31,19 @@
 }
 
 .sidebar .logo {
-    margin-bottom: 40px;
+    margin-bottom: 10px;
     text-align: center;
     background: linear-gradient(120deg, #34d399, #0ea5e9);
     -webkit-background-clip: text;
     color: transparent;
-    font-size: 1.8rem;
+    font-size: 20px;
     font-weight: 700;
 }
 
 .menu {
     list-style: none;
     padding: 0;
+    margin: 0;
     overflow-y: auto;
     flex: 1;
 }
@@ -51,20 +52,45 @@
     width: 4px;
 }
 .menu::-webkit-scrollbar-thumb {
-    background: rgba(148, 163, 184, 0.3);
-    border-radius: 4px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
 }
 
 .menu li {
-    padding: 15px 20px;
+    padding: 6px 12px;
+    margin: 4px 8px;
+    font-size: 13px;
+    height: auto;
     color: #cbd5e1;
     cursor: pointer;
     transition: all 0.3s;
-    border-radius: 10px;
-    margin-bottom: 5px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+}
+
+.menu li + li {
+    margin-top: 2px;
+}
+
+.menu li i {
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.sidebar hr {
+    border: none;
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+    margin: 8px 0;
+}
+
+.sidebar .highlight {
+    padding: 8px 12px;
+    margin: 6px 8px;
+    border-radius: 10px;
+    font-size: 13px;
 }
 
 .menu li:hover,

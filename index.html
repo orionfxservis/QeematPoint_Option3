@@ -423,11 +423,12 @@
               <div class="border border-slate-800 rounded-xl overflow-x-auto text-xs sm:text-sm flex-1">
                 <div class="min-w-[450px]">
                   <div class="grid grid-cols-12 bg-slate-900/80 text-slate-300 font-semibold px-2 sm:px-3 py-2">
-                    <div class="col-span-5">Item / آئٹم</div>
-                    <div class="col-span-3 text-center">Area / علاقہ</div>
-                    <div class="col-span-2 text-center">Distance</div>
-                    <div class="col-span-2 text-right">Price (Rs)</div>
-                  </div>
+  <div class="col-span-4">Item / آئٹم</div>
+  <div class="col-span-2 text-center">Area / علاقہ</div>
+  <div class="col-span-2 text-center">Unit</div>
+  <div class="col-span-2 text-center">Price (Rs)</div>
+  <div class="col-span-2 text-right">Previous Price</div>
+</div>
                   <div id="productRows" class="divide-y divide-slate-800/80 bg-slate-950/70 block w-full">
                     <!-- JS will render rows -->
                   </div>
@@ -900,9 +901,104 @@
       </div>
     </div>
   </div>
+  
+  <div id="productRows"></div>
 
-  <script src="js/data-service.js"></script>
-  <script src="js/script.js"></script>
+<script src="js/data-service.js"></script>
+<script src="js/script.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<script>
+const client = supabase.createClient(
+  "https://mhtfjfvcrwfuucukorvb.supabase.co",
+  "sb_publishable_WWXOAe74U8dIARMFu7Si-A_EjoLUtjz"
+);
+
+async function loadPrices() {
+  try {
+    const { data, error } = await supabase
+      .from('prices')
+      .select('item_name, category, price, unit, previous_price, updated_at')
+      .order('updated_at', { ascending: false });
+
+    if (error) {
+      console.error("Supabase Error:", error);
+      return;
+    }
+
+    console.log("Prices Data:", data);
+
+    document.getElementById("priceTable").innerHTML = data.map(item => `
+      <tr>
+        <td>${item.item_name}</td>
+        <td>${item.category}</td>
+        <td>${item.price}</td>
+        <td>${item.unit || '-'}</td>
+        <td>${item.previous_price ?? '-'}</td>
+        <td>${item.updated_at ? new Date(item.updated_at).toLocaleString() : '-'}</td>
+      </tr>
+    `).join('');
+
+  } catch (err) {
+    console.error("Unexpected Error:", err);
+  }
+}
+
+// Run on page load
+loadPrices();
+</script>
+<div class="grid grid-cols-12 px-2 sm:px-3 py-2 text-slate-200 hover:bg-slate-900/40 transition ${item.previous_price !== item.price ? "bg-slate-900/30" : ""}">
+
+document.getElementById("productRows").innerHTML =
+  data
+    .sort((a, b) => a.price - b.price) // cheapest first
+    .map(item => {
+
+      const prev = item.previous_price;
+
+      let priceColor = "text-slate-200";
+      let changeText = "";
+
+      // price change logic
+      if (prev !== null && prev !== undefined) {
+        if (item.price > prev) {
+          priceColor = "text-red-400";
+          changeText = `🔴 +${(item.price - prev).toFixed(0)}`;
+        } else if (item.price < prev) {
+          priceColor = "text-green-400";
+          changeText = `🟢 -${(prev - item.price).toFixed(0)}`;
+        }
+      }
+
+      // highlight changed row
+      const rowBg = (prev !== null && prev !== item.price)
+        ? "bg-slate-900/30"
+        : "";
+
+      return `
+        <div class="grid grid-cols-12 px-2 sm:px-3 py-2 text-slate-200 hover:bg-slate-900/40 transition ${rowBg}">
+
+          <div class="col-span-4">${item.item_name}</div>
+
+          <div class="col-span-2 text-center">${item.city || 'Karachi'}</div>
+
+          <div class="col-span-2 text-center">${item.unit || '-'}</div>
+
+          <div class="col-span-2 text-center ${priceColor}">
+            ${item.price}
+            <div class="text-[10px]">${changeText}</div>
+          </div>
+
+          <div class="col-span-2 text-right">
+            ${item.previous_price ?? '-'}
+          </div>
+
+        </div>
+      `;
+    })
+    .join('');
+  
 </body>
 
 </html>
