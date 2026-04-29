@@ -1,5 +1,5 @@
-import fetch from "node-fetch";
-import { createClient } from "@supabase/supabase-js";
+const fetch = require("node-fetch");
+const { createClient } = require("@supabase/supabase-js");
 
 // Supabase setup
 const supabase = createClient(
