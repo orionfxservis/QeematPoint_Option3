@@ -2,9 +2,8 @@ name: Daily Price Fetch
 
 on:
   schedule:
-    - cron: '0 3 * * *'   # 8 AM Pakistan time
-
-  workflow_dispatch: # allows manual run
+    - cron: '0 3 * * *'
+  workflow_dispatch:
 
 jobs:
   run-script:
@@ -19,8 +18,8 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install dependencies manually
+        run: npm install @supabase/supabase-js node-fetch@2
 
       - name: Run script
         run: node cron-fetch.js
