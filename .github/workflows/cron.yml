@@ -22,6 +22,6 @@ jobs:
         run: npm install @supabase/supabase-js node-fetch@2
 
       - name: Run script
-        run: node cron-fetch.js
+        run: node backend/cron-fetch.js
         env:
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
