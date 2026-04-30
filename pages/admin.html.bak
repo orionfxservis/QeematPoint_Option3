@@ -760,7 +760,6 @@
 
     <script src="../js/data-service.js"></script>
     <script src="../js/admin.js"></script>
-	<script src="../js/blog-manager.js"></script>
 </body>
 
 </html>

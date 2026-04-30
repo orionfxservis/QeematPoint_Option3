@@ -1,44 +1,19 @@
-// Language Setup (runs immediately)
-const currentLang = localStorage.getItem('qeematLang') || 'ur';
+// Language Toggle Logic
+    const currentLang = localStorage.getItem('qeematLang') || 'ur';
+    document.documentElement.lang = currentLang;
+    document.documentElement.dir = currentLang === 'ur' ? 'rtl' : 'ltr';
 
-document.documentElement.lang = currentLang;
-document.documentElement.dir = currentLang === 'ur' ? 'rtl' : 'ltr';
-
-// Function to update visible language content
-function updateLanguageUI(lang) {
-  // English text
-  document.querySelectorAll('.lang-en').forEach(el => {
-    el.style.display = (lang === 'en') ? 'inline' : 'none';
-  });
-
-  // Urdu text
-  document.querySelectorAll('.lang-ur').forEach(el => {
-    el.style.display = (lang === 'ur') ? 'inline' : 'none';
-  });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const toggleBtn = document.getElementById('langToggleBtn');
-
-  // Apply language on page load
-  updateLanguageUI(currentLang);
-
-  if (toggleBtn) {
-    toggleBtn.addEventListener('click', () => {
-      const newLang = document.documentElement.lang === 'ur' ? 'en' : 'ur';
-
-      // Update HTML attributes
-      document.documentElement.lang = newLang;
-      document.documentElement.dir = newLang === 'ur' ? 'rtl' : 'ltr';
-
-      // Save preference
-      localStorage.setItem('qeematLang', newLang);
-
-      // Update UI text
-      updateLanguageUI(newLang);
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggleBtn = document.getElementById('langToggleBtn');
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+          const newLang = document.documentElement.lang === 'ur' ? 'en' : 'ur';
+          document.documentElement.lang = newLang;
+          document.documentElement.dir = newLang === 'ur' ? 'rtl' : 'ltr';
+          localStorage.setItem('qeematLang', newLang);
+        });
+      }
     });
-  }
-});
 
     // Mobile menu toggle
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');

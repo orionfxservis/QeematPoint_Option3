@@ -564,24 +564,23 @@ if (userForm) {
 }
 
 
+// Navigation
 function showSection(sectionId) {
     document.querySelectorAll('.admin-section').forEach(sec => sec.classList.remove('active'));
     document.getElementById(sectionId).classList.add('active');
 
     document.querySelectorAll('.menu li').forEach(li => li.classList.remove('active'));
-    try {
-        if (typeof event !== 'undefined' && event && event.currentTarget) {
-            event.currentTarget.classList.add('active');
-        }
-    } catch (e) {}
-
-    // ✅ ADD THIS PART
-    if (sectionId === 'blogs') {
-        if (typeof renderBlogs === "function") {
-            renderBlogs();
-        }
-    }
+    try { if(typeof event !== 'undefined' && event && event.currentTarget) { event.currentTarget.classList.add('active'); } } catch(e) {}
 }
+
+function logout() {
+    window.location.href = '../index.html';
+}
+
+// Init
+// Init
+// Init
+window.addEventListener('load', initAdmin);
 
 // --- Product Functions ---
 let productEditIndex = -1;
