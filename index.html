@@ -872,9 +872,9 @@
         </div>
         <div class="flex flex-wrap gap-3 items-center text-[0.75rem]">
           <span class="text-slate-400">Follow us:</span>
-          <a href="#"
+          <a href="https://www.facebook.com/profile.php?id=61589302070213" target="_blank"
             class="px-2 py-1 rounded-full bg-slate-900 border border-slate-700 text-slate-200 hover:border-sky-400 hover:text-sky-300">Facebook</a>
-          <a href="#"
+          <a href="https://www.instagram.com/stopbuypk/" target="_blank"
             class="px-2 py-1 rounded-full bg-slate-900 border border-slate-700 text-slate-200 hover:border-sky-400 hover:text-sky-300">Instagram</a>
           <a href="#"
             class="px-2 py-1 rounded-full bg-slate-900 border border-slate-700 text-slate-200 hover:border-sky-400 hover:text-sky-300">YouTube</a>
@@ -893,7 +893,13 @@
       <div class="p-6">
         <h2 id="modalBlogTitle" class="text-xl font-bold text-slate-50 mb-4 pb-4 border-b border-slate-700/50"></h2>
         <div id="modalBlogContent" class="text-slate-300 text-sm leading-relaxed mb-6 whitespace-pre-line"></div>
-        <div class="mt-auto pt-4 border-t border-slate-700/50 flex justify-end">
+        <div class="mt-auto pt-4 border-t border-slate-700/50 flex items-center justify-between">
+          <button id="fbShareBtn" onclick="shareToFacebook()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white border border-blue-600/40 text-[0.7rem] sm:text-xs font-semibold transition shadow-md">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+            </svg>
+            <span class="lang-en">Publish</span><span class="lang-ur">پبلش کریں</span>
+          </button>
           <span class="text-xs text-slate-400 bg-slate-800 px-3 py-1.5 rounded-full">
             <i class="fa-solid fa-pen-nib mr-1"></i> <span id="modalBlogAuthor"></span>
           </span>
@@ -948,57 +954,6 @@ async function loadPrices() {
 // Run on page load
 loadPrices();
 </script>
-<div class="grid grid-cols-12 px-2 sm:px-3 py-2 text-slate-200 hover:bg-slate-900/40 transition ${item.previous_price !== item.price ? "bg-slate-900/30" : ""}">
-
-document.getElementById("productRows").innerHTML =
-  data
-    .sort((a, b) => a.price - b.price) // cheapest first
-    .map(item => {
-
-      const prev = item.previous_price;
-
-      let priceColor = "text-slate-200";
-      let changeText = "";
-
-      // price change logic
-      if (prev !== null && prev !== undefined) {
-        if (item.price > prev) {
-          priceColor = "text-red-400";
-          changeText = `🔴 +${(item.price - prev).toFixed(0)}`;
-        } else if (item.price < prev) {
-          priceColor = "text-green-400";
-          changeText = `🟢 -${(prev - item.price).toFixed(0)}`;
-        }
-      }
-
-      // highlight changed row
-      const rowBg = (prev !== null && prev !== item.price)
-        ? "bg-slate-900/30"
-        : "";
-
-      return `
-        <div class="grid grid-cols-12 px-2 sm:px-3 py-2 text-slate-200 hover:bg-slate-900/40 transition ${rowBg}">
-
-          <div class="col-span-4">${item.item_name}</div>
-
-          <div class="col-span-2 text-center">${item.city || 'Karachi'}</div>
-
-          <div class="col-span-2 text-center">${item.unit || '-'}</div>
-
-          <div class="col-span-2 text-center ${priceColor}">
-            ${item.price}
-            <div class="text-[10px]">${changeText}</div>
-          </div>
-
-          <div class="col-span-2 text-right">
-            ${item.previous_price ?? '-'}
-          </div>
-
-        </div>
-      `;
-    })
-    .join('');
-  
 </body>
 
 </html>
